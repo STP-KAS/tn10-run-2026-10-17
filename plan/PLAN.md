@@ -1,6 +1,6 @@
 > **DRAFT, NOT ARMED.** Nothing in this repo starts anything.
 
-> **Draft for stp. Not pushed, nothing armed.** Experimental. Testnet-10 only, tKAS has no value.
+> Experimental. Testnet-10 only, tKAS has no value.
 
 # TN10 test run, Saturday 17 Oct 2026: two short runs, one question each
 
