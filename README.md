@@ -12,6 +12,12 @@
 
 **DRAFT, NOT ARMED.** Experimental, Testnet-10 only, tKAS has no value. Two short TN10 runs on Saturday 17 Oct 2026, one question each, modest load, not a storm. This follows the advice of Kaspa Pulse (@gokugalax, kaspapulse.com): short runs with one clear question, announced a day ahead with a UTC window. Results will be counts only.
 
+## Why targets, not clock times
+
+- **Fixed time slots haven't worked.** [tn10-storm-2026-10-10](https://github.com/STP-KAS/tn10-storm-2026-10-10) ran clock-stepped 15-minute steps. Its best step median was about **2,642 tx/s**, below the 3,000 line, and steps moved on before the network had reached the state we wanted to measure.
+- **Fixed targets have proven themselves.** [tn10-storm-2026-10-11](https://github.com/STP-KAS/tn10-storm-2026-10-11) ran to one target: **3,107 tx/s** median, and Kaspa Pulse (@gokugalax, kaspapulse.com) counted **163 minutes above 3,000**.
+- **Method:** Grok keeps going and fixing until the step's target is met; only then does the next step start. Safety caps only hold or stop a step, never advance it.
+
 ## Method
 
 **Each step has a target. The next step starts only when that target is reached.** If not, the step holds and retries within its safety cap, or the run stops and the reason is logged. No time-based auto-advance anywhere. Details: [plan/PLAN.md](plan/PLAN.md#method-target-gated-like-11-oct).

@@ -25,6 +25,12 @@ Sunday 11 Oct answered the big question: 3,000+ tx/s held (Pulse: 163 minutes ab
 
 **Changed 13 Oct 2026 (stp):** the fixed time slots are replaced by targets. Timeframes did not work in earlier runs; 11 Oct, the last successful storm, ran to a target. Only the anchors below are clock times.
 
+## Why targets, not clock times
+
+- **Fixed time slots haven't worked.** [tn10-storm-2026-10-10](https://github.com/STP-KAS/tn10-storm-2026-10-10) ran clock-stepped 15-minute steps. Its best step median was about **2,642 tx/s**, below the 3,000 line, and steps moved on before the network had reached the state we wanted to measure.
+- **Fixed targets have proven themselves.** [tn10-storm-2026-10-11](https://github.com/STP-KAS/tn10-storm-2026-10-11) ran to one target: **3,107 tx/s** median, and Kaspa Pulse (@gokugalax, kaspapulse.com) counted **163 minutes above 3,000**.
+- **Method:** Grok keeps going and fixing until the step's target is met; only then does the next step start. Safety caps only hold or stop a step, never advance it.
+
 ## Method: target-gated, like 11 Oct
 
 The last successful storm, [tn10-storm-2026-10-11](https://github.com/STP-KAS/tn10-storm-2026-10-11), worked because it had **one target and one window, with no step timeline**. The 10 Oct storm ran fixed 15-minute steps on a clock and missed its line. On Saturday we keep the clock only as **fixed anchors**. Every step between them is driven by a target.
