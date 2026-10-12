@@ -70,13 +70,13 @@ Suggested window for Pulse's counter and fee log: **13:30-16:30 UTC** (15:30-18:
 | **Bot** (TN10 ops) | Box node n3 (new, see Prep), its one miner paying the bot wallet (address kept out of git), modest senders to the five public nodes, the n3 stop/restart in A, miner off/on in B. |
 | **Bot** (tn ops2) | All logging, live `SUMMARY.md` every 15 min, chain count, write-up. |
 | **Build** | Its desk node + one miner (pays Build wallet, address kept out of git); modest senders to its own node only; miner off/on in B on the same second as the bot; its own fee-read CSV from its node. Build does **not** resync in A (it is the steady reference). |
-| **Kaspa Pulse** | Fee estimate of both his nodes every minute 13:30-16:30 UTC, his accepted-per-minute count, block rate. Optional, his choice. Not pinged by the bots. |
+| **Kaspa Pulse (@gokugalax, kaspapulse.com)** | **Confirmed 14:00 UTC (12 Oct).** Counts 13:30-16:30 UTC on both his nodes: accepted tx and blocks per minute, by block time; logs the fee estimate (priority / normal / low) every minute. His results go to stp first. Not pinged by the bots. |
 | **stp** | Fri announcement, message to Pulse, sends GO files (lock), the only halt, OK before anything goes public. |
 
 ## Prep (before Fri 16 Oct 14:00 UTC)
 
 1. **Box node:** n2's data was deleted on 12 Oct and no kaspad or miner runs on the box now (checked 12 Oct 17:30 CEST: 95 GB free, 15 GB RAM). Sync a fresh pruned TN10 node **n3** (kaspad 2.1.0, no UTXO index, not archival, loopback only, no tunnel, **never `--enable-unsynced-mining`**: on 29 Sep a fresh-synced node mined a private chain with it, see kaspa-master-file TN10-INCIDENT-2026-09-29) by **Fri 16 Oct 12:00 UTC**. If the box cannot hold it with 20 GB to spare, Run A uses Build's node as the resync node instead and the bot node becomes the reference (log `deviation`).
-2. **Disk guard:** stop n3 below 10 GB free (as 11 Oct); Build keeps 30 GB free. Budget pruning bursts of up to 16 GB in 30 min. PR #1148 (lowio) is **not** used on Saturday: one change at a time, unmerged code would confound the fee question. Note it as a candidate for a later run ([tn10-lowio-1148-notes](https://github.com/STP-KAS/tn10-lowio-1148-notes)). Warn at 20 GB free (`deviation`, as 11 Oct 07:31Z). Never delete the storm SDK in cleanup (tn-master LESSONS).
+2. **Disk guard:** stop n3 below 10 GB free (as 11 Oct); Build keeps 30 GB free. Budget pruning bursts of up to 16 GB in 30 min. PR #1148 (lowio) is **not** used on Saturday: one change at a time, unmerged code would confound the fee question. It is a candidate for **its own short run later** (disk writes per hour, with and without lowio; suggested by Kaspa Pulse (@gokugalax, kaspapulse.com)) ([tn10-lowio-1148-notes](https://github.com/STP-KAS/tn10-lowio-1148-notes)). Warn at 20 GB free (`deviation`, as 11 Oct 07:31Z). Never delete the storm SDK in cleanup (tn-master LESSONS).
 3. **Coins:** from the bot main wallet (address kept out of git, about 4.69M tKAS). Need is small: see Load. Hold 1.5x before R1. Coins are confirmed against a node, never from an indexer balance alone, and coins already in flight are never reused (ADVICE 7, 8).
 4. **Fee reader:** one script, one call per node per minute: `getFeeEstimate` (priority, normal[0], low[0]) plus mempool size and virtual DAA / sink lag, for n3, Build's node, and the five public nodes.
 5. GO files written from this plan in the 11 Oct format (GO-BOT / GO-BUILD), locked when stp sends them.
@@ -100,9 +100,11 @@ Steps:
 3. 14:10-14:25 UTC: n3 off for 15 min, so it falls ~9,000 blocks behind and must catch up on restart.
 4. 14:25 UTC: start n3 on the same flags (`node-restart`). Log the exact second it reports synced (`node-synced`) and the catch-up time; miner back on only after synced. n3's mempool is empty after restart (not persisted, ADVICE 5), so any entries it shows after catch-up come from peers or the IBD path.
 5. Until 15:00 UTC: keep reading every minute. Also log n3 mempool count each minute; if its priority bucket is high, sample 300 mempool tx and check how many are already accepted (as oskrcl did on #1147).
-6. Optional variant only if time allows and stp says so: a short "fell behind without full IBD" case (stop 2 min) to probe OPEN-QUESTIONS 6.
+6. **Did n3 actually enter IBD?** A 15-min gap (about 9,000 blocks) may be caught up block by block without IBD (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note). #1147 is about IBD, so log from n3's own log and RPC whether it entered IBD (IBD start/end lines, `isSynced`/sync state), with times. If it did not, Run A still measures fees after a catch-up, but it is **not** an IBD test, and the write-up says so.
+7. **Option (stp decides, not default):** force IBD with a longer gap (stop n3 well before 14:00, e.g. from 12:00 UTC, restart at 14:25) or another way that makes the node IBD; labelled `option-ibd` if used.
+8. Optional variant only if time allows and stp says so: a short "fell behind without full IBD" case (stop 2 min) to probe OPEN-QUESTIONS 6.
 
-What counts as a result: per minute, n3's priority and normal vs the median of the other nodes (ours + public + Pulse's). **Drift = ratio > 2x.** Report max ratio, minutes until back within 2x, and n3 mempool size. Because n3 mines, also note whether its own block template cleared it (#1147: a mining node self-corrects; supertypo's review asks about re-check cost, so we also log n3 CPU and the catch-up time).
+What counts as a result: per minute, n3's priority and normal vs the median of the other nodes (ours + public + Pulse's). **Drift = ratio > 2x.** **Floor case** (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note): at about 650 tx/s nodes may all quote the fee floor, so a ratio can never show drift. Also count drift whenever n3 quotes **above the floor while the median is on the floor**, and log n3's and the median node's mempool count next to every such minute. Report max ratio, minutes until back within 2x, and n3 mempool size. Because n3 mines, also note whether its own block template cleared it (#1147: a mining node self-corrects; supertypo's review asks about re-check cost, so we also log n3 CPU and the catch-up time).
 
 ## Run B: a large miner drops out (15:15-16:15 UTC / 17:15-18:15 CEST)
 
@@ -115,7 +117,7 @@ Steps:
 4. 15:50:00 UTC: both miners on (`miner-on`).
 5. 15:50-16:15 UTC: recovery. Report time until block rate is back within 5% of baseline.
 
-Miners: exactly one per side, one thread, on the side's own node, no public mining endpoint (11 Oct rule). Before the run, log our hashrate share from the last hour (our blocks / all blocks). If our share is under 15%, the drop is too small to read; say so in the write-up rather than adding miners. Difficulty adjusts over time, so the 20-min window also shows how fast TN10 retargets.
+Miners: exactly one per side, one thread, on the side's own node, no public mining endpoint (11 Oct rule). Before the run, log our hashrate share from the last hour (our blocks / all blocks). If our share is under 15%, **skip Run B** (log `deviation`) rather than add miners (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note); the B window then runs as load-only baseline or ends early, stp decides. Difficulty adjusts over time, so the 20-min window also shows how fast TN10 retargets.
 
 ## Logging (CSV per minute, UTC timestamps)
 
