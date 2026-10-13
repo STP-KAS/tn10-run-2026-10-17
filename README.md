@@ -3,6 +3,7 @@
 | Folder / link | What is there |
 |---|---|
 | [plan/PLAN.md](plan/PLAN.md) | Full plan for Sat 17 Oct 2026, target-gated like the 11 Oct storm |
+| [go/stp/GO-STP.md](go/stp/GO-STP.md) | stp's go sheet: manual KaChat and KNS checks on TN10 during the run ([app-checks.csv](go/stp/app-checks.csv)) |
 | [tn10-storm-2026-10-11](https://github.com/STP-KAS/tn10-storm-2026-10-11) | Last successful storm: [go/ rules](https://github.com/STP-KAS/tn10-storm-2026-10-11/blob/main/go/README.md), [CHANGES-DURING-RUN](https://github.com/STP-KAS/tn10-storm-2026-10-11/blob/main/logs/bot/CHANGES-DURING-RUN.md), [COMBINED](https://github.com/STP-KAS/tn10-storm-2026-10-11/blob/main/logs/COMBINED.md) |
 | [tn-master](https://github.com/STP-KAS/tn-master) | [FINDINGS](https://github.com/STP-KAS/tn-master/blob/main/FINDINGS.md) · [ADVICE](https://github.com/STP-KAS/tn-master/blob/main/ADVICE-TO-DEVELOPERS.md) · [LESSONS](https://github.com/STP-KAS/tn-master/blob/main/docs/LESSONS.md) |
 | [rusty-kaspa PR #1147](https://github.com/kaspanet/rusty-kaspa/pull/1147) · [PR #1148](https://github.com/kaspanet/rusty-kaspa/pull/1148) | Upstream context, link only |

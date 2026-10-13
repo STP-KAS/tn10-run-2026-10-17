@@ -78,6 +78,10 @@ Run B never starts on a clock: only when Run A has reached A4 (or was stopped an
 - **Run B, large miner drop-out:** block rate per 10 s and per minute, tx per block, mempool size, fee estimates, how far and how fast it falls, time back within 5%, and how fast TN10 retargets. **Skip if our share is under 15%** (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note).
 - **Pulse counts 13:30-16:30 UTC** (15:30-18:30 CEST) on both his nodes: accepted tx and blocks per minute by block time, and fee estimates every minute. His results go to stp first. Not pinged by the bots.
 
+### stp's app checks
+
+stp tests KaChat and KNS by hand during the run (baseline before START, at every step change, about every 10 min under load) to confirm or deny that they get stuck under load. Sheet: [go/stp/GO-STP.md](../go/stp/GO-STP.md), log [go/stp/app-checks.csv](../go/stp/app-checks.csv). Nothing about it is published until matched to our counts and confirmed.
+
 ### Stop rules
 
 - **Only stp halts** (11 Oct halt order: flag, watchdog, scheduler, senders 0, wait 10 s, kill senders and miners, check nothing restarts).
