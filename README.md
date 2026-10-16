@@ -4,8 +4,12 @@
 |---|---|
 | [plan/PLAN.md](plan/PLAN.md) | Full plan for Sat 17 Oct 2026, same text as the plan repo |
 | [plan/TN10-17-Oct-2026.pdf](plan/TN10-17-Oct-2026.pdf) | Plan sheet: what, why, how. Pre-test and real test in UTC and local time |
-| [go/build/GO-BUILD.md](go/build/GO-BUILD.md) | Build's GO. Read it and be ready. It does not start the run |
-| [go/bot/PROMPT-GO-BOT.md](go/bot/PROMPT-GO-BOT.md) | Prompt for the bot. The bot writes go/bot/GO-BOT.md from it |
+| [go/README.md](go/README.md) | Shared rule book, in the 10 Oct and 11 Oct shape |
+| [go/LOGGING.md](go/LOGGING.md) | Same log columns for both sides |
+| [go/AFTER-RUN.md](go/AFTER-RUN.md) | Chain count and summaries after the hard stop |
+| [go/build/GO-BUILD.md](go/build/GO-BUILD.md) | Build's GO. It stands alone. It does not start the run |
+| [go/bot/REVIEW-GO.md](go/bot/REVIEW-GO.md) | Review for the bot. Not a GO. The bot agrees or disagrees |
+| [go/bot/PROMPT-GO-BOT.md](go/bot/PROMPT-GO-BOT.md) | Used only after stp accepts the review. The bot then writes GO-BOT.md |
 | [logs/build/precheck-2026-10-16.md](logs/build/precheck-2026-10-16.md) | Build desk pre-check, 16 Oct 2026 |
 | [go/stp/GO-STP.md](go/stp/GO-STP.md) | stp's go sheet: manual KaChat and KNS checks on TN10 during the run ([app-checks.csv](go/stp/app-checks.csv)) |
 | [tn10-storm-2026-10-11](https://github.com/STP-KAS/tn10-storm-2026-10-11) | Last successful storm: [go/ rules](https://github.com/STP-KAS/tn10-storm-2026-10-11/blob/main/go/README.md), [CHANGES-DURING-RUN](https://github.com/STP-KAS/tn10-storm-2026-10-11/blob/main/logs/bot/CHANGES-DURING-RUN.md), [COMBINED](https://github.com/STP-KAS/tn10-storm-2026-10-11/blob/main/logs/COMBINED.md) |
@@ -32,6 +36,7 @@
 | Anchor | UTC | Brussels (CEST) |
 |---|---|---|
 | Announcement in TN10 channels | Fri 16 Oct 14:00 | Fri 16 Oct 16:00 |
+| Pre-test. Read the GO. Be ready. Do not send. | Sat 17 Oct 12:00 | 14:00 |
 | Logging and fee reads start | Sat 17 Oct 13:30 | 15:30 |
 | **START**, Run A (if gate G1 reached) | **14:00** | **16:00** |
 | Kaspa Pulse's counting window | 13:30-16:30 | 15:30-18:30 |
@@ -40,4 +45,4 @@
 - **Run A, fees after a resync (#1147):** baseline → n3 off until ≥9,000 blocks behind → resync, IBD yes/no logged → watch until back within 2x for 10 min (floor-drift rule, mempool count logged).
 - **Run B, a large miner drops out:** only if our hashrate share is ≥15% → baseline → miners off until block rate settles → miners on until back within 5%.
 - Load about 720 tx/s at fixed fees, no climbs, no quote-based skipping. Bot about 360 tx/s, Build about 360 tx/s.
-- 11 Oct rules kept: node-dead rule, disk guards, freeze restart, one miner per side, count soon after the end, leak-scan, only stp halts.
+- 11 Oct rules kept: node-dead rule, disk guards, freeze restart, count soon after the end, leak-scan, only stp halts. One miner on the desk through Run A. The bot has no miner.

@@ -1,8 +1,10 @@
-> Hand this file to the TN10 bot. The bot writes `go/bot/GO-BOT.md` on the Saturday repos and stops. The bot does not start the run.
+> Do not follow this prompt until stp says the review in [REVIEW-GO.md](REVIEW-GO.md) is accepted.
+>
+> After that: write `go/bot/GO-BOT.md` and stop. Do not start the run. Do not send.
 
 # Prompt: bot, write your GO for Saturday 17 Oct 2026
 
-You are the TN10 bot. Write your own go file and commit it.
+You are the TN10 bot. The review is already agreed. Write your own go file and commit it.
 
 Repos:
 
@@ -11,7 +13,7 @@ Repos:
 
 Put the same file in both, at `go/bot/GO-BOT.md`. Do not put IPs, addresses, or txids in either repo.
 
-Read [plan/PLAN.md](../../plan/PLAN.md) and [plan/TN10-17-Oct-2026.pdf](../../plan/TN10-17-Oct-2026.pdf) first. Build's file is [go/build/GO-BUILD.md](../build/GO-BUILD.md). Do not edit Build's file.
+Read [../README.md](../README.md), [../LOGGING.md](../LOGGING.md), [REVIEW-GO.md](REVIEW-GO.md), and [../build/GO-BUILD.md](../build/GO-BUILD.md). Do not edit those files. If your review changed a point, and stp accepted that change, write the accepted change. Do not silently pick a different rate or a different clock.
 
 ## What GO means
 
@@ -22,26 +24,36 @@ The first lines of GO-BOT must say this, in these words:
 
 Receiving GO is not the start gun.
 
-## Clock, write it in the GO
+## Sections, in this order
 
-Local time is Brussels, CEST, UTC+2.
+Use the same section shape as the 11 Oct GO and the 10 Oct bot run.
 
-| When | UTC | Local |
-|---|---|---|
-| Pre-test. Be ready. Do not send. | Sat 17 Oct 2026, 12:00 | 14:00 |
-| Logging opens. Pulse's window opens. | 13:30 | 15:30 |
-| Real test starts, two hours after the pre-test. | 14:00 | 16:00 |
-| Hard stop. Senders off. | 16:30 | 18:30 |
+1. GO
+2. Your job
+3. Where you send
+4. No node, no miner
+5. Fees
+6. Coins
+7. The desk node and the one miner (what you ask stp and Build to do)
+8. Clock
+9. Gates you call
+10. Log everything
+11. Halt
+12. After END
+13. Never
 
-## What the bot's GO must contain
+## Facts that must be in the file
 
 - No box node and no miner. The box stalled overnight 15–16 Oct, 11 IBD restarts, never synced, and it is stopped.
-- Sends and fee reads go to the five public TN10 nodes only. About 360 tx/s. Fee 400 sompi/gram, fixed. No climbs, no quote skip, no sit-out.
-- Pulse's count for 13:30–16:30 UTC is the record. The bot does not replace that count.
-- The bot calls the gates. Run A: ask stp to stop and restart the one desk node. That node keeps its one miner on through the resync. Run B: ask Build to turn that one miner off, then on, and only if hashrate share is at least 15%. Otherwise skip Run B and log it.
-- Pre-test checklist: at least 4 of 5 public nodes answer, senders connected and idle, coins confirmed on a node, fee read working. Do not send the run at 12:00 UTC.
-- Real test starts at 14:00 UTC only if the plan gate is met. Hard stop 16:30 UTC. Only stp halts before that.
-- Node-dead rule: stop on 5 s RPC failure, not synced, sink lag over 60 s, or virtual DAA still for 30 s.
-- Label the load: no-signature hop, anyone-can-spend, not realistic payments. Testnet-10 only. tKAS has no value.
+- About 360 tx/s on the five public nodes. Fee 400 sompi/gram, fixed. No climb, no sit-out, no quote skip.
+- Public-node failure: about 20 errors in a row cools that node for 30 seconds. One dead public node does not stop the side.
+- You call the gates in [REVIEW-GO.md](REVIEW-GO.md). A step moves on `gate-pass` only.
+- Run A: ask stp to stop and restart the one desk node. That node keeps its one miner on through the resync. Build does not fill the A2 gap on the public nodes. You keep 360 tx/s.
+- Run B: ask Build to turn that one miner off, then on, only if the share gate passes. Otherwise `skip`.
+- Clock: pre-test Sat 17 Oct 2026 12:00 UTC / 14:00 CEST. Logging 13:30 / 15:30. Real test 14:00 / 16:00. G1 deadline 14:30 / 16:30. Hard stop 16:30 / 18:30.
+- Pulse's count for 13:30–16:30 UTC is the record. Your chain count is not added to Build's.
+- Node-dead, coins, disk, and the log files are the ones in [../README.md](../README.md) and [../LOGGING.md](../LOGGING.md).
+- Label: no-signature hop, anyone-can-spend, not realistic payments. Testnet-10 only. tKAS has no value.
+- Only stp halts.
 
 Write the file, commit it on both repos, and stop. Do not start senders.

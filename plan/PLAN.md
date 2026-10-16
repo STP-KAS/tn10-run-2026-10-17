@@ -50,7 +50,7 @@ The last successful storm, [tn10-storm-2026-10-11](https://github.com/STP-KAS/tn
 | Kaspa Pulse's counting window | **13:30-16:30** | 15:30-18:30 |
 | **Hard stop** (safety cap): senders off and miners on, wherever the run is | **16:30** | **18:30** |
 
-Handing over GO-BUILD or GO-BOT means get ready for the pre-test. It does not start the run. Build reads [go/build/GO-BUILD.md](../go/build/GO-BUILD.md). The bot writes and reads go/bot/GO-BOT.md from [go/bot/PROMPT-GO-BOT.md](../go/bot/PROMPT-GO-BOT.md). The sheet with the clocks is [plan/TN10-17-Oct-2026.pdf](TN10-17-Oct-2026.pdf).
+Handing over GO-BUILD or GO-BOT means get ready for the pre-test. It does not start the run. The shared rule book is [go/README.md](../go/README.md). Logging columns are [go/LOGGING.md](../go/LOGGING.md). Build reads [go/build/GO-BUILD.md](../go/build/GO-BUILD.md). The bot first reviews [go/bot/REVIEW-GO.md](../go/bot/REVIEW-GO.md), which is not a GO. After stp accepts that review, the bot writes go/bot/GO-BOT.md from [go/bot/PROMPT-GO-BOT.md](../go/bot/PROMPT-GO-BOT.md). The sheet with the clocks is [plan/TN10-17-Oct-2026.pdf](TN10-17-Oct-2026.pdf).
 
 If gate G1 is not reached at 14:00 UTC, START waits (hold) until it is. If it is still not reached by 14:30 UTC (16:30 CEST), Run A is called off and logged; the Run B gate is then checked as normal.
 
