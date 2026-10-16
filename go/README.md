@@ -28,6 +28,14 @@ Load: bot about **360 tx/s**, Build about **360 tx/s**, plus TN10 base load (abo
 
 The headline count is **network unique accepted transactions, each id once**, from chain data. Never add the bot's count to Build's count. Kaspa Pulse's count for 13:30–16:30 UTC is the record. Ours sits beside it.
 
+## Operating principle: target first
+
+Same principle as the 11 Oct storm: one target, one window. **Keep going, but fix first.**
+
+- Within the closed 14:00-16:30 UTC window, the transaction target is the goal, not the clock.
+- The bot and Build keep going. On a bug, error, crash or stall they restart, find a solution or workaround, and log it (`fix`, `deviation`). A problem is never turned into a stop or a question.
+- Only the true safety stops end the run: the 16:30 UTC hard stop and stp's halt.
+
 ## Clock
 
 | What | Brussels (CEST) | UTC |
