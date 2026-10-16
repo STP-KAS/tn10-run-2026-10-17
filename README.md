@@ -4,6 +4,7 @@
 |---|---|
 | [plan/PLAN.md](plan/PLAN.md) | Full plan for Sat 17 Oct 2026, same text as the plan repo |
 | [plan/TN10-17-Oct-2026.pdf](plan/TN10-17-Oct-2026.pdf) | Plan sheet: what, why, how. Pre-test and real test in UTC and local time |
+| [plan/TN10-16-Oct-2026-tonight.pdf](plan/TN10-16-Oct-2026-tonight.pdf) | Possible Friday run, 23:00 local / 21:00 UTC, done by midnight local. Not a GO |
 | [go/build/GO-BUILD.md](go/build/GO-BUILD.md) | Build's GO. Read it and be ready. It does not start the run |
 | [go/bot/PROMPT-GO-BOT.md](go/bot/PROMPT-GO-BOT.md) | Prompt for the bot. The bot writes go/bot/GO-BOT.md from it |
 | [logs/build/precheck-2026-10-16.md](logs/build/precheck-2026-10-16.md) | Build desk pre-check, 16 Oct 2026 |
