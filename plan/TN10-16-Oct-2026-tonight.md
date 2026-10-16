@@ -1,4 +1,4 @@
-> **Possible, not armed.** This file is not a GO. Nothing starts until stp says go for tonight. Saturday's plan stays as written. Testnet-10 only. tKAS has no value. No addresses, IPs, or txids.
+> **Not used.** Saturday 17 Oct is the plan. The 23:00 local try is off. Testnet-10 only. tKAS has no value. No addresses, IPs, or txids.
 
 # Possible run, Friday 16 Oct 2026, 23:00 local
 
