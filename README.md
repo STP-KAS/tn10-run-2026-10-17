@@ -39,5 +39,5 @@
 
 - **Run A, fees after a resync (#1147):** baseline → n3 off until ≥9,000 blocks behind → resync, IBD yes/no logged → watch until back within 2x for 10 min (floor-drift rule, mempool count logged).
 - **Run B, a large miner drops out:** only if our hashrate share is ≥15% → baseline → miners off until block rate settles → miners on until back within 5%.
-- Load about 600 tx/s at fixed fees, no climbs, no quote-based skipping.
+- Load about 720 tx/s at fixed fees, no climbs, no quote-based skipping. Bot about 360 tx/s, Build about 360 tx/s.
 - 11 Oct rules kept: node-dead rule, disk guards, freeze restart, one miner per side, count soon after the end, leak-scan, only stp halts.

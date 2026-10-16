@@ -36,7 +36,7 @@ Local time is Brussels, CEST, UTC+2.
 ## What the bot's GO must contain
 
 - No box node and no miner. The box stalled overnight 15–16 Oct, 11 IBD restarts, never synced, and it is stopped.
-- Sends and fee reads go to the five public TN10 nodes only. About 300 tx/s. Fee 400 sompi/gram, fixed. No climbs, no quote skip, no sit-out.
+- Sends and fee reads go to the five public TN10 nodes only. About 360 tx/s. Fee 400 sompi/gram, fixed. No climbs, no quote skip, no sit-out.
 - Pulse's count for 13:30–16:30 UTC is the record. The bot does not replace that count.
 - The bot calls the gates. Run A: ask stp to stop and restart the one desk node. That node keeps its one miner on through the resync. Run B: ask Build to turn that one miner off, then on, and only if hashrate share is at least 15%. Otherwise skip Run B and log it.
 - Pre-test checklist: at least 4 of 5 public nodes answer, senders connected and idle, coins confirmed on a node, fee read working. Do not send the run at 12:00 UTC.

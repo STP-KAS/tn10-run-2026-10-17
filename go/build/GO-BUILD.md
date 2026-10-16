@@ -22,7 +22,7 @@ Local time is Brussels, CEST, UTC+2.
 
 One desk node. No second kaspad. Pulse's count for 13:30–16:30 UTC is the record. Build sends, and reads this node's fee when the node answers.
 
-- About 300 tx/s through this node. Fee 200 sompi/gram, fixed. No climbs, no quote skip, no sit-out.
+- About 360 tx/s through this node. Fee 200 sompi/gram, fixed. No climbs, no quote skip, no sit-out.
 - Exactly one miner stays pointed at this node through Run A, including the resync, so we can see how a mining node's fee estimate behaves. The other miners on this PC are off before the pre-test and stay off.
 - Chains stay on this node. If the node cannot hold the rate, about a quarter of the senders move to the five public TN10 nodes, the same relief as 11 Oct. Transactions that spend each other stay on one route.
 - Own TN10 funds only. No addresses, IPs, or txids in the repo or in the handoff.
