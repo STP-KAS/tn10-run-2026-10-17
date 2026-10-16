@@ -85,9 +85,9 @@ Run B never starts on a clock: only when Run A has reached A4 (or was stopped an
 - **Run B, large miner drop-out:** block rate per 10 s and per minute, tx per block, mempool size, fee estimates, how far and how fast it falls, time back within 5%, and how fast TN10 retargets. **Skip if our share is under 15%** (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note).
 - **Pulse counts 13:30-16:30 UTC** (15:30-18:30 CEST) on both his nodes: accepted tx and blocks per minute by block time, and fee estimates every minute. His results go to stp first. Not pinged by the bots.
 
-### stp's app checks
+### App checks (Kaspa Pulse)
 
-stp tests KaChat and KNS by hand during the run (baseline before START, at every step change, about every 10 min under load) to confirm or deny that they get stuck under load. Sheet: [go/stp/GO-STP.md](../go/stp/GO-STP.md), log [go/stp/app-checks.csv](../go/stp/app-checks.csv). Nothing about it is published until matched to our counts and confirmed.
+Kaspa Pulse (@gokugalax, kaspapulse.com) tests KaChat and KNS by hand during the run (Pulse, 16 Oct: "i do the kachat and kns checks by hand") (baseline before START, at every step change, about every 10 min under load) to confirm or deny that they get stuck under load. His results are compared to our counts by UTC second. Nothing about it is published until they match and are confirmed. stp has no app-check task; [go/stp/app-checks.csv](../go/stp/app-checks.csv) is an optional log where stp can note Pulse's findings or his own.
 
 ### Stop rules
 
@@ -101,10 +101,10 @@ stp tests KaChat and KNS by hand during the run (baseline before START, at every
 
 | Who | Job |
 |---|---|
-| **Bot** (TN10 ops) | No node, no miner (16 Oct). Modest senders and fee reads to the five public nodes, calls the n3 stop/restart in A (stp does it on his desk), all gate calls. |
+| **Bot** (TN10 ops) | No node, no miner (16 Oct). Modest senders and fee reads to the five public nodes, calls the n3 stop/restart in A (n3 is Build's desk node; stp stops and restarts it on his desk), all gate calls. |
 | **Bot** (tn ops2) | All logging, live `SUMMARY.md` every 15 min (with the current step and target), chain count, write-up. |
-| **Build** | Its desk node + one miner (pays Build wallet, address kept out of git); modest senders to its own node only; miner off/on in B (our only miner), on the bot's gate call; its own fee-read CSV; **chain count and reads for our side**. Build does **not** resync in A (steady reference). |
-| **Kaspa Pulse (@gokugalax, kaspapulse.com)** | Counts 13:30-16:30 UTC (15:30-18:30 CEST) on both his nodes: accepted tx and blocks per minute, by block time; fee estimate every minute. Results to stp first. Not pinged by the bots. |
+| **Build** | Its one desk node, which is n3 and is the node resynced in Run A (stopped and restarted by stp), + one miner (pays Build wallet, address kept out of git): **miner off through all of Run A**, on only if Run B runs (B1 on, B2 off, B3 on, on the bot's gate call; our only miner); modest senders to its own node only (held during A2); its own fee-read CSV; **chain count and reads for our side** (partial while the node is down). |
+| **Kaspa Pulse (@gokugalax, kaspapulse.com)** | Counts 13:30-16:30 UTC (15:30-18:30 CEST) on both his nodes: accepted tx and blocks per minute, by block time; fee estimate every minute. Results to stp first. Not pinged by the bots. KaChat and KNS app checks by hand (baseline before START, each step change, about every 10 min under load); results compared to our counts, nothing published until they match and are confirmed. |
 | **stp** | Fri announcement, message to Pulse, sends GO files (lock), the only halt, OK before anything goes public. |
 
 ## Prep (gate G0, by Fri 16 Oct 12:00 UTC / 14:00 CEST)

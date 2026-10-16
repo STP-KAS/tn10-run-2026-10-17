@@ -69,8 +69,8 @@ If G1 is not met at 14:00 UTC, START waits. If it is still not met at 14:30 UTC,
 |---|---|---|---|---|
 | Bot | TN10 ops sends. tn ops2 logs, counts, writes the live summary. | The five public TN10 nodes only | None. The box node stays stopped. | None |
 | Build | Grok Build on stp's desk | Its desk node. About a quarter may move to the five public nodes only while that node is up and cannot hold the rate. | One private pruned kaspad, version 2.1.0, UTXO index on. This same node is the resync node. | Exactly one, OFF for all of Run A (this node is n3 and never mines). On only for Run B if B0 passes. |
-| Pulse | Kaspa Pulse (@gokugalax, kaspapulse.com) | Does not send for us | His own nodes | His own concern |
-| stp | The only halt | — | Says when the desk node stops and starts in Run A | — |
+| Pulse | Kaspa Pulse (@gokugalax, kaspapulse.com) | Does not send for us. KaChat and KNS app checks by hand (baseline before START, each step change, about every 10 min under load). | His own nodes | His own concern |
+| stp | Gives the GO and the stop (the only halt). No app-check task. | — | Says when the desk node stops and starts in Run A | — |
 
 The five public nodes, same names as the 10 Oct run: `muon-10.kaspa.blue`, `boson-10.kaspa.red`, `electron-10.kaspa.blue`, `neutrino-10.kaspa.stream`, `vector-10.kaspa.green`.
 
