@@ -1,4 +1,4 @@
-> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 600 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
 >
 > Experimental. Testnet-10 only. tKAS has no value.
 >
@@ -26,7 +26,7 @@ Brussels is CEST, UTC+2. Clocks in git stay in UTC. One clock for both sides.
 1. **Run A.** After the desk node falls about 9,000 blocks behind and catches up, does its fee estimate drift, by how much, and for how long?
 2. **Run B.** Only if our hashrate share over the last hour is at least 15%. When the one miner stops, how far do block rate and throughput fall, and how fast do they come back?
 
-Load: bot about **360 tx/s**, Build about **360 tx/s** (about **720 tx/s** total, as in the plan sheet Pulse agreed), plus TN10 base load (about 56 tx/s). Fees fixed: bot **400** sompi/gram, Build **200**. No climbs.
+Load: bot about **300 tx/s**, Build about **300 tx/s** (about **600 tx/s** total, as in Pulse's DM; stp decision 16 Oct), plus TN10 base load (about 56 tx/s). Fees fixed: bot **400** sompi/gram, Build **200**. No climbs.
 
 > **Run B likely skipped.** With n3 not mining in Run A, our last-hour share at B0 will be near 0% and almost surely under 15%. Expect B0 = `skip` (logged in gates.csv), unless the miner is turned on right after Run A and the share passes before 15:45 UTC.
 
@@ -84,8 +84,8 @@ Never submit to the other side's path. Chained transactions stay on one route.
 - **Fees.** Bot 400, Build 200, fixed for the whole window. No climb, no sit-out, no quote skip. A quote that would have tripped the 11 Oct sit-out is logged and sending continues. Doing a sit-out or a quote skip is a `deviation`.
 - **Node-dead, public node (bot, and Build's relief senders).** About 20 connection or RPC errors in a row cools that node for 30 seconds. Load moves to the other live public nodes. No live node: wait, and count no attempt. Log `node-dead` and `node-back`.
 - **Node-dead, desk node (Build).** Stop submitting to it on 5 seconds of RPC failure, not synced, sink lag over 60 seconds on a fresh read, or virtual DAA still for 30 seconds. Resume when a fresh read is healthy.
-- **Planned stop (Run A, step A2).** The desk node is stopped on purpose until it is about 9,000 blocks behind. Build does not submit to it, and does not move that load onto the public nodes to fill the gap. The bot keeps 360 tx/s on the public nodes. Build's `sent` in those seconds is 0 because the senders were held. That 0 is measured. Log `node-stop`.
-- **Relief.** While the desk node is up and cannot hold 360 tx/s, about a quarter of Build's senders move to the five public nodes, then come back after 2 minutes of good health. Log `node-fallback` and `node-back`. Chains stay on one route.
+- **Planned stop (Run A, step A2).** The desk node is stopped on purpose until it is about 9,000 blocks behind. Build does not submit to it, and does not move that load onto the public nodes to fill the gap. The bot keeps 300 tx/s on the public nodes. Build's `sent` in those seconds is 0 because the senders were held. That 0 is measured. Log `node-stop`.
+- **Relief.** While the desk node is up and cannot hold 300 tx/s, about a quarter of Build's senders move to the five public nodes, then come back after 2 minutes of good health. Log `node-fallback` and `node-back`. Chains stay on one route.
 - **Gates.** The bot calls them. The next step starts only on `gate-pass`. Hold is `gate-hold`. A safety cap that ends a step is `gate-fail` or `skip`, with the reason. stp stops and restarts the desk node. Build turns the one miner off and on when the bot calls Run B.
 - **One miner.** It is OFF from the pre-test through all of Run A, including the resync: n3 never mines (a mining node clears its own stale mempool and hides the #1147 effect). The other miners on the desk PC stay off. Run B may turn it on for B1, off for B2, on for B3. Never a second miner. At the hard stop it may be on.
 - 16 Oct (stp, later decision): n3 never mines. This replaces the earlier 16 Oct one-miner-through-Run-A line. The desk node is Build's one kaspad and is n3; Build's desk node is only a partial monitor during A2/A3 (it is stopped and resyncing), so the five public nodes carry the continuous fee and mempool reads.

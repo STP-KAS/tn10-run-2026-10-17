@@ -1,6 +1,6 @@
 # tn10-run-2026-10-17: FROZEN after Pulse agreement 16 Oct
 
-> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 600 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
 
 | Folder / link | What is there |
 |---|---|
@@ -46,5 +46,5 @@
 
 - **Run A, fees after a resync (#1147):** baseline → n3 off until ≥9,000 blocks behind → resync, IBD yes/no logged → watch until back within 2x for 10 min (floor-drift rule, mempool count logged).
 - **Run B, a large miner drops out:** only if our hashrate share is ≥15% → baseline → miners off until block rate settles → miners on until back within 5%.
-- Load about 720 tx/s at fixed fees, no climbs, no quote-based skipping. Bot about 360 tx/s, Build about 360 tx/s.
+- Load about 600 tx/s at fixed fees, no climbs, no quote-based skipping. Bot about 300 tx/s, Build about 300 tx/s.
 - 11 Oct rules kept: node-dead rule, disk guards, freeze restart, count soon after the end, leak-scan, only stp halts. One miner on the desk through Run A. The bot has no miner.

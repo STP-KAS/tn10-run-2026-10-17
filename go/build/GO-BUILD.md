@@ -1,4 +1,4 @@
-> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 600 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
 >
 > Experimental. Testnet-10 only. tKAS has no value.
 >
@@ -11,7 +11,7 @@
 
 ## Your job
 
-One desk node. You send about **360 tx/s** to it at **200** sompi/gram, fixed. Your one miner stays OFF through all of Run A, including the resync. This node is n3 and never mines. You read its fee whenever it answers. You write Build's half of the logs.
+One desk node. You send about **300 tx/s** to it at **200** sompi/gram, fixed. Your one miner stays OFF through all of Run A, including the resync. This node is n3 and never mines. You read its fee whenever it answers. You write Build's half of the logs.
 
 Pulse's count for 13:30–16:30 UTC is the record. Your chain count sits beside it. Your count gaps while the node is down.
 
@@ -32,7 +32,7 @@ The 11 Oct storm process is not this run. Its stop flag is not your switch.
 ## Where you send
 
 - Start on this node only. Fee 200 sompi/gram. No climb, no sit-out, no quote skip.
-- About 360 tx/s from 14:00 UTC, and only if the bot calls G1 passed.
+- About 300 tx/s from 14:00 UTC, and only if the bot calls G1 passed.
 - While the node is up and cannot hold that rate: move about a quarter of your senders to the five public nodes, and move them back after 2 minutes of good health. Log `node-fallback` and `node-back`. Transactions that spend each other stay on one route.
 - The five public nodes: `muon-10.kaspa.blue`, `boson-10.kaspa.red`, `electron-10.kaspa.blue`, `neutrino-10.kaspa.stream`, `vector-10.kaspa.green`.
 - During Run A step A2 the node is stopped on purpose. Hold your senders. Do not fill that gap on the public nodes. `sent` 0 in those seconds is measured. Log `node-stop`.
@@ -85,12 +85,12 @@ You do not advance a step. The bot calls the gate. You act when the call names y
 |---|---|---|
 | Pre-test | Checklist below. Write the ready file. Senders idle. | 12:00 UTC, ready file written |
 | G1 | Logging on. Senders still idle. Fee read works. | Bot calls pass, or 14:30 UTC calls Run A off |
-| A1 | Send about 360 tx/s. Miner off. | Bot calls 10 clean minutes, or 30 min cap |
+| A1 | Send about 300 tx/s. Miner off. | Bot calls 10 clean minutes, or 30 min cap |
 | A2 | stp stops the node. You hold senders. Miner stays off. | About 9,000 blocks behind, or 45 min |
 | A3 | stp starts the same node. You log IBD yes or no, the synced second, and the catch-up. Fee rows every minute once it answers. | Synced, or 45 min |
 | A4 | Keep sending once the node answers. Keep the fee rows. | 10 minutes back within 2x of the median and off the floor when the median is, or 60 min after synced |
 | B0 | Idle on the miner until the bot calls. | Share at least 15% and block rate about 10/s for 10 min, or skip by 15:45 UTC |
-| B1 | Miner on. Keep 360 tx/s. | 10 minutes steady, or hard stop |
+| B1 | Miner on. Keep 300 tx/s. | 10 minutes steady, or hard stop |
 | B2 | Miner off. Water and KNS paused by the bot. | Block rate fallen and held 10 min, or 25 min, or under 5/s for 2 min |
 | B3 | Miner on. | Block rate within 5% of the B1 baseline for 10 min, or hard stop |
 | END | Senders off. Miner as Run B left it (off if skipped). Node stays up. | 16:30 UTC |
@@ -115,7 +115,7 @@ written_utc: 2026-10-17T12:00:00Z
 own_node_synced: yes | no
 kaspad_version: 2.1.0
 senders_idle: yes
-target_tx_s: 360
+target_tx_s: 300
 fee: 200
 miner: off
 other_miners: off

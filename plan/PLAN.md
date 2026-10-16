@@ -1,4 +1,4 @@
-> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 600 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
 
 > Nothing in this repo starts anything.
 
@@ -118,7 +118,7 @@ stp tests KaChat and KNS by hand during the run (baseline before START, at every
 
 ## Load (modest, both runs)
 
-- Bot about **360 tx/s**, Build about **360 tx/s** (20% above the earlier 300/300), plus TN10 base load (~56 tx/s). Label: "no-signature hop, anyone-can-spend, not realistic payments".
+- Bot about **300 tx/s**, Build about **300 tx/s** (back to 300/300 on 16 Oct: 600 tx/s for 20 s is the tested level), plus TN10 base load (~56 tx/s). Label: "no-signature hop, anyone-can-spend, not realistic payments".
 - Fixed fees, no climbs, no quote-based skipping, no sit-out: bot **400**, Build **200** sompi/gram, so senders do not react to the quotes Run A measures. Node-dead rule stays (Kaspa Pulse's rule: stop on 5 s RPC failure, not synced, sink lag > 60 s or DAA stall > 30 s).
 - At most 8 bot senders, staggered, no launch below 1.5 GB free RAM; one locked scheduler; at most one relaunch per sender per minute. Any rate check reads **every** sender file.
 
@@ -139,7 +139,7 @@ Results: one page per question, ours vs Pulse side by side. Counts only.
 
 ## Announcement (stp posts Fri 16 Oct 14:00 UTC / 16:00 CEST in the TN10 channels)
 
-> **TN10 test, Saturday 17 Oct, 14:00-16:30 UTC (16:00-18:30 CEST).** Two short runs, modest load (about 720 tx/s on top of normal traffic, not a storm). Each step moves on when its target is reached, not on a clock.
+> **TN10 test, Saturday 17 Oct, 14:00-16:30 UTC (16:00-18:30 CEST).** Two short runs, modest load (about 600 tx/s on top of normal traffic, not a storm). Each step moves on when its target is reached, not on a clock.
 > **Run A, fees after a resync:** one of our nodes goes offline until it is about 9,000 blocks behind, then resyncs; we log fee estimates from several nodes every minute to see if a resynced node's estimate drifts (related to rusty-kaspa #1147).
 > **Run B, a large miner drops out** (only if our hashrate share is big enough): after Run A, our miners stop together for up to 25 minutes, to see how block rate and throughput react. Expect a lower block rate for that stretch; everything ends by 16:30 UTC.
 > Kaspa Pulse (@gokugalax, kaspapulse.com) has offered to count both runs independently. Results go public afterwards, counts only. Questions or objections before Saturday are welcome.

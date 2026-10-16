@@ -53,7 +53,7 @@ One row per minute. Mempool is the per-minute max of each public node's own read
 utc,side,step,target_tx_s,senders_live,sent,submit_ok,rejects,node_accepted,mempool_size,sink_lag_s,synced,utxoindex,virtual_daa_score,sink_blue_score,feerate_quote,fee_low,fee_high,node_state
 ```
 
-`target_tx_s` is 360 while that side should be sending, and 0 while a hold, a node-dead wait, or Run A step A2 (Build only) is on. `fee_low` and `fee_high` are both 400 on the bot and both 200 on Build. `node_state` is `ok`, `lag` (sink lag over 60 s), `dead`, or `syncing`. While the desk node is stopped, Build leaves the node columns empty.
+`target_tx_s` is 300 while that side should be sending, and 0 while a hold, a node-dead wait, or Run A step A2 (Build only) is on. `fee_low` and `fee_high` are both 400 on the bot and both 200 on Build. `node_state` is `ok`, `lag` (sink lag over 60 s), `dead`, or `syncing`. While the desk node is stopped, Build leaves the node columns empty.
 
 ### minute.csv
 

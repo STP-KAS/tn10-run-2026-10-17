@@ -1,4 +1,4 @@
-> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 600 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
 >
 > **This file is a review. It is not a GO.**
 >
@@ -15,7 +15,7 @@ This review follows the shape of the [11 Oct GO](https://github.com/STP-KAS/tn10
 ## Your side, as written
 
 - You have **no node and no miner**. The box node stays stopped.
-- You send about **360 tx/s** to the five public nodes only. Fee **400** sompi/gram, fixed. No climb, no sit-out, no quote skip.
+- You send about **300 tx/s** to the five public nodes only. Fee **400** sompi/gram, fixed. No climb, no sit-out, no quote skip.
 - The five names: `muon-10.kaspa.blue`, `boson-10.kaspa.red`, `electron-10.kaspa.blue`, `neutrino-10.kaspa.stream`, `vector-10.kaspa.green`.
 - At most 8 senders, one scheduler, staggered launch, at most one relaunch per sender per minute, no launch under 1.5 GB free RAM.
 - A public node with about 20 errors in a row is cooled for 30 seconds. Load moves to the other live ones. You do not stop the whole side because one public node fails.
@@ -48,7 +48,7 @@ This review follows the shape of the [11 Oct GO](https://github.com/STP-KAS/tn10
 | Gate | Pass when | If not |
 |---|---|---|
 | G1 | Fee rows every minute, at least 4 of 5 public nodes answer, your senders connected and idle, the one desk miner confirmed OFF, at least 10 baseline fee rows | Hold. Still open at 14:30 UTC: Run A off. |
-| A1 | 10 complete minutes at 360 tx/s from you and from Build. Priority and normal on each read node within 2x of the median. | Hold. 30 min: Run A stops. |
+| A1 | 10 complete minutes at 300 tx/s from you and from Build. Priority and normal on each read node within 2x of the median. | Hold. 30 min: Run A stops. |
 | A2 | Desk node about 9,000 blocks behind. Build is not filling that gap on the public nodes. | Keep it off. 45 min: restart and log `gate-fail`. |
 | A3 | Desk node synced. IBD yes or no logged from its own log. | Hold. 45 min: Run A stops. Frozen (DAA still over 3 min and sink lag over 3 min): one restart. |
 | A4 | Back within 2x of the median for 10 minutes, and off the fee floor when the median is. | Hold. 60 min after synced is itself a result. Run A ends. |
@@ -69,10 +69,10 @@ Those runs are the pattern for the files, the columns, the lock, and the node-de
 
 ## Please answer, point by point
 
-1. Can you send about 360 tx/s at fee 400, fixed, on those five public nodes, with no node of your own?
+1. Can you send about 300 tx/s at fee 400, fixed, on those five public nodes, with no node of your own?
 2. Are those five names still the public TN10 nodes you will use? If one has changed, give the replacement name and no IP.
 3. Do you agree to call the gates above, and to leave the clock where it is when a target is not met?
-4. Do you agree that during A2 you keep your own 360 tx/s on the public nodes, and you do not ask Build to replace its stopped node with public-node sends?
+4. Do you agree that during A2 you keep your own 300 tx/s on the public nodes, and you do not ask Build to replace its stopped node with public-node sends?
 5. Do you agree you have no miner, and that the desk miner stays off through Run A, because n3 never mines?
 6. Do you agree Run B is skipped when the last-hour share is under 15%?
 7. Do you agree to log from 13:30 UTC in the columns of [LOGGING.md](../LOGGING.md), with an empty cell when a read did not happen?

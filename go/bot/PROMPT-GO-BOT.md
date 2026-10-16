@@ -45,10 +45,10 @@ Use the same section shape as the 11 Oct GO and the 10 Oct bot run.
 ## Facts that must be in the file
 
 - No box node and no miner. The box stalled overnight 15–16 Oct, 11 IBD restarts, never synced, and it is stopped.
-- About 360 tx/s on the five public nodes. Fee 400 sompi/gram, fixed. No climb, no sit-out, no quote skip.
+- About 300 tx/s on the five public nodes. Fee 400 sompi/gram, fixed. No climb, no sit-out, no quote skip.
 - Public-node failure: about 20 errors in a row cools that node for 30 seconds. One dead public node does not stop the side.
 - You call the gates in [REVIEW-GO.md](REVIEW-GO.md). A step moves on `gate-pass` only.
-- Run A: ask stp to stop and restart the one desk node. That node never mines; its miner stays off through Run A. Build does not fill the A2 gap on the public nodes. You keep 360 tx/s.
+- Run A: ask stp to stop and restart the one desk node. That node never mines; its miner stays off through Run A. Build does not fill the A2 gap on the public nodes. You keep 300 tx/s.
 - Run B: ask Build to turn that one miner off, then on, only if the share gate passes. Otherwise `skip`. If B runs, pause water and KNS for all of B2.
 - Write `pulse-minute.csv` every minute: mempool per public node and rejects by reason.
 - FROZEN after Pulse agreement 16 Oct. The congestion ramp is a future run, not Saturday.
