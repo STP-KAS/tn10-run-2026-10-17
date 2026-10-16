@@ -1,4 +1,4 @@
-> **DRAFT, NOT ARMED.** Experimental. Testnet-10 only. tKAS has no value. [Rule book](README.md).
+> **FROZEN after Pulse agreement 16 Oct.** Experimental. Testnet-10 only. tKAS has no value. [Rule book](README.md).
 
 # LOGGING: same files, same columns, both sides
 
@@ -38,6 +38,14 @@ Copied from the [11 Oct logging spec](https://github.com/STP-KAS/tn10-storm-2026
 A missing `logs/bot/node.csv` is expected. A missing file that this table says the side writes is a hole: say so in `SUMMARY.md`.
 
 Header rows below are the shape. They are not results.
+
+### pulse-minute.csv (bot, for Kaspa Pulse (@gokugalax, kaspapulse.com))
+
+```
+minute_utc,side,step,mempool_max,mempool_muon,mempool_electron,mempool_neutrino,mempool_boson,mempool_vector,submit_ok,rejects,rej_orphan,rej_double_spend,rej_fee,rej_mass,rej_rpc_timeout,rej_rpc_closed,rej_other
+```
+
+One row per minute. Mempool from each public node's own read (empty if it did not answer). Rejects by reason from the senders' own submits.
 
 ### sec.csv
 
@@ -87,7 +95,7 @@ utc,side,step,reason,count
 utc,side,miner_state,threads,hashrate_hs,blocks_found,blocks_accepted,blocks_rejected
 ```
 
-Bot: `miner_state` `off`, `threads` 0, for the whole run. Build: `on` through Run A, `off` during B2, `on` again from B3, and `on` at the hard stop.
+Bot: `miner_state` `off`, `threads` 0, for the whole run. Build: `off` through Run A; `on` in B1, `off` in B2, `on` from B3 (only if B0 passes); `on` at the hard stop only if Run A has ended.
 
 ### host.csv
 

@@ -1,4 +1,4 @@
-> **DRAFT, NOT ARMED.** Experimental. Testnet-10 only. tKAS has no value. [Rule book](README.md).
+> **FROZEN after Pulse agreement 16 Oct.** Experimental. Testnet-10 only. tKAS has no value. [Rule book](README.md).
 
 # After the hard stop
 

@@ -48,8 +48,10 @@ Use the same section shape as the 11 Oct GO and the 10 Oct bot run.
 - About 360 tx/s on the five public nodes. Fee 400 sompi/gram, fixed. No climb, no sit-out, no quote skip.
 - Public-node failure: about 20 errors in a row cools that node for 30 seconds. One dead public node does not stop the side.
 - You call the gates in [REVIEW-GO.md](REVIEW-GO.md). A step moves on `gate-pass` only.
-- Run A: ask stp to stop and restart the one desk node. That node keeps its one miner on through the resync. Build does not fill the A2 gap on the public nodes. You keep 360 tx/s.
-- Run B: ask Build to turn that one miner off, then on, only if the share gate passes. Otherwise `skip`.
+- Run A: ask stp to stop and restart the one desk node. That node never mines; its miner stays off through Run A. Build does not fill the A2 gap on the public nodes. You keep 360 tx/s.
+- Run B: ask Build to turn that one miner off, then on, only if the share gate passes. Otherwise `skip`. If B runs, pause water and KNS for all of B2.
+- Write `pulse-minute.csv` every minute: mempool per public node and rejects by reason.
+- FROZEN after Pulse agreement 16 Oct. The congestion ramp is a future run, not Saturday.
 - Clock: pre-test Sat 17 Oct 2026 12:00 UTC / 14:00 CEST. Logging 13:30 / 15:30. Real test 14:00 / 16:00. G1 deadline 14:30 / 16:30. Hard stop 16:30 / 18:30.
 - Pulse's count for 13:30–16:30 UTC is the record. Your chain count is not added to Build's.
 - Node-dead, coins, disk, and the log files are the ones in [../README.md](../README.md) and [../LOGGING.md](../LOGGING.md).

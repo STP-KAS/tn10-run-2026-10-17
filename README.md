@@ -1,4 +1,6 @@
-# tn10-run-2026-10-17: DRAFT, NOT ARMED
+# tn10-run-2026-10-17: FROZEN after Pulse agreement 16 Oct
+
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
 
 | Folder / link | What is there |
 |---|---|
@@ -19,7 +21,7 @@
 
 ## Intro
 
-**DRAFT, NOT ARMED.** Experimental, Testnet-10 only, tKAS has no value. Two short TN10 runs on Saturday 17 Oct 2026, one question each, modest load, not a storm. This follows the advice of Kaspa Pulse (@gokugalax, kaspapulse.com): short runs with one clear question, announced a day ahead with a UTC window. Results will be counts only.
+**FROZEN after Pulse agreement 16 Oct.** Experimental, Testnet-10 only, tKAS has no value. Two short TN10 runs on Saturday 17 Oct 2026, one question each, modest load, not a storm. This follows the advice of Kaspa Pulse (@gokugalax, kaspapulse.com): short runs with one clear question, announced a day ahead with a UTC window. Results will be counts only.
 
 ## Why targets, not clock times
 

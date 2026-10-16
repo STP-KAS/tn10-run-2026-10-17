@@ -1,4 +1,6 @@
-> **DRAFT, NOT ARMED.** Experimental. Testnet-10 only. tKAS has no value.
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
+>
+> Experimental. Testnet-10 only. tKAS has no value.
 >
 > Handing over a GO means get ready for the pre-test. It does not start the run.
 >
@@ -24,7 +26,15 @@ Brussels is CEST, UTC+2. Clocks in git stay in UTC. One clock for both sides.
 1. **Run A.** After the desk node falls about 9,000 blocks behind and catches up, does its fee estimate drift, by how much, and for how long?
 2. **Run B.** Only if our hashrate share over the last hour is at least 15%. When the one miner stops, how far do block rate and throughput fall, and how fast do they come back?
 
-Load: bot about **360 tx/s**, Build about **360 tx/s**, plus TN10 base load (about 56 tx/s). Fees fixed: bot **400** sompi/gram, Build **200**. No climbs.
+Load: bot about **360 tx/s**, Build about **360 tx/s** (about **720 tx/s** total, as in the plan sheet Pulse agreed), plus TN10 base load (about 56 tx/s). Fees fixed: bot **400** sompi/gram, Build **200**. No climbs.
+
+> **Run B likely skipped.** With n3 not mining in Run A, our last-hour share at B0 will be near 0% and almost surely under 15%. Expect B0 = `skip` (logged in gates.csv), unless the miner is turned on right after Run A and the share passes before 15:45 UTC.
+
+> **B2 pause (Pulse, 16 Oct).** If Run B runs, the 1984 water test and the KNS lanes pause for all of B2 (from `miner-off` until the bot calls B3), so they do not blur the miner drop. The bot signals the pause and the resume.
+
+> **Not Saturday.** The congestion ramp (up to about 8,000 tx/s, soft freeze at 80,000 mempool, cut at 90,000, below the 100,000 panic) is a future run, not Saturday. Saturday keeps the modest load and keeps the 80k soft freeze / 90k cut only as safety margins.
+
+**Per-minute CSV for Pulse.** The bot writes `pulse-minute.csv` every minute: mempool size per public node (and the max), and rejects by reason, so Pulse can line up his counts.
 
 The headline count is **network unique accepted transactions, each id once**, from chain data. Never add the bot's count to Build's count. Kaspa Pulse's count for 13:30–16:30 UTC is the record. Ours sits beside it.
 
@@ -46,7 +56,7 @@ Same principle as the 11 Oct storm: one target, one window. **Keep going, but fi
 | G1 still open: Run A is called off, Run B's gate is checked | 16:30 | 14:30 |
 | Run B skipped if its gate is still open | 17:45 | 15:45 |
 | Pulse's count | 15:30–18:30 | 13:30–16:30 |
-| **Hard stop.** Senders off. The one miner is on. | **18:30** | **16:30** |
+| **Hard stop.** Senders off. The one miner may be on (only after Run A has ended). | **18:30** | **16:30** |
 | Chain count, before pruning | right after 18:30 | right after 16:30 |
 
 A step moves when its target is reached. A clock never advances a step. A safety cap can only hold, skip, or stop.
@@ -58,13 +68,16 @@ If G1 is not met at 14:00 UTC, START waits. If it is still not met at 14:30 UTC,
 | Side | Who | Sends to | Node | Miner |
 |---|---|---|---|---|
 | Bot | TN10 ops sends. tn ops2 logs, counts, writes the live summary. | The five public TN10 nodes only | None. The box node stays stopped. | None |
-| Build | Grok Build on stp's desk | Its desk node. About a quarter may move to the five public nodes only while that node is up and cannot hold the rate. | One private pruned kaspad, version 2.1.0, UTXO index on. This same node is the resync node. | Exactly one, through Run A, including the gap |
+| Build | Grok Build on stp's desk | Its desk node. About a quarter may move to the five public nodes only while that node is up and cannot hold the rate. | One private pruned kaspad, version 2.1.0, UTXO index on. This same node is the resync node. | Exactly one, OFF for all of Run A (this node is n3 and never mines). On only for Run B if B0 passes. |
 | Pulse | Kaspa Pulse (@gokugalax, kaspapulse.com) | Does not send for us | His own nodes | His own concern |
 | stp | The only halt | — | Says when the desk node stops and starts in Run A | — |
 
 The five public nodes, same names as the 10 Oct run: `muon-10.kaspa.blue`, `boson-10.kaspa.red`, `electron-10.kaspa.blue`, `neutrino-10.kaspa.stream`, `vector-10.kaspa.green`.
 
 Never submit to the other side's path. Chained transactions stay on one route.
+
+> **Sticky lanes.** Each lane (a chain of transactions that spend each other) is pinned to one public node. A lane moves to another node only after its last transaction is accepted. Never move a lane with a transaction still in flight: on 16 Oct rotating chained lanes across nodes gave orphan rejects at 300 tx/s; sticky lanes gave 20,001/20,001 accepted at up to 600 tx/s.
+> **Node-dead (Kaspa Pulse (@gokugalax, kaspapulse.com)'s rule, also for public nodes).** Pause a node on RPC failing (health read fails, or about 20 RPC errors in a row), not synced, sink lag over 60 s, or virtual DAA still for 30 s. Cooled for at least 30 s; back when a fresh read is healthy. A failed submit counts as a reject, never as sent-and-ok.
 
 ## Rules
 
@@ -74,8 +87,8 @@ Never submit to the other side's path. Chained transactions stay on one route.
 - **Planned stop (Run A, step A2).** The desk node is stopped on purpose until it is about 9,000 blocks behind. Build does not submit to it, and does not move that load onto the public nodes to fill the gap. The bot keeps 360 tx/s on the public nodes. Build's `sent` in those seconds is 0 because the senders were held. That 0 is measured. Log `node-stop`.
 - **Relief.** While the desk node is up and cannot hold 360 tx/s, about a quarter of Build's senders move to the five public nodes, then come back after 2 minutes of good health. Log `node-fallback` and `node-back`. Chains stay on one route.
 - **Gates.** The bot calls them. The next step starts only on `gate-pass`. Hold is `gate-hold`. A safety cap that ends a step is `gate-fail` or `skip`, with the reason. stp stops and restarts the desk node. Build turns the one miner off and on when the bot calls Run B.
-- **One miner.** It stays pointed at the desk node through Run A, including while that node is stopped and catching up. The other miners on the desk PC are off before the pre-test and stay off. Run B turns that one miner off, then on. Never a second miner. At the hard stop the one miner is on.
-- **This is a deviation** from the morning line that the resync node never mines, and from the morning line that Build does not resync. On this PC those two roles are the same machine. The 16 Oct decision wins.
+- **One miner.** It is OFF from the pre-test through all of Run A, including the resync: n3 never mines (a mining node clears its own stale mempool and hides the #1147 effect). The other miners on the desk PC stay off. Run B may turn it on for B1, off for B2, on for B3. Never a second miner. At the hard stop it may be on.
+- 16 Oct (stp, later decision): n3 never mines. This replaces the earlier 16 Oct one-miner-through-Run-A line. The desk node is Build's one kaspad and is n3; Build's desk node is only a partial monitor during A2/A3 (it is stopped and resyncing), so the five public nodes carry the continuous fee and mempool reads.
 - **Disk.** Build keeps at least 30 GB free, and warns at 20 GB. The desk node stops below 10 GB free. A pruning burst can be up to 16 GB in 30 minutes.
 - **Senders.** At most 8 bot senders, one scheduler, launches staggered, at most one relaunch per sender per minute, no launch under 1.5 GB free RAM. Build's sender count stays inside what the desk node held on the 16 Oct pre-check.
 - **Coins.** Confirm spendable coins on a node. Never from an indexer balance alone. Never reuse a coin still in flight. Never fetch a whole address in one UTXO call. Bot holds at least 10,000 tKAS spendable. No address in git.
@@ -101,7 +114,7 @@ Never submit to the other side's path. Chained transactions stay on one route.
 
 ## Lock
 
-These files are not locked. The bot review is open.
+These files are FROZEN after the Kaspa Pulse (@gokugalax, kaspapulse.com) agreement of 16 Oct.
 
 Once stp sends GO-BUILD and GO-BOT, they are locked. Sending them means get ready for 12:00 UTC. It does not mean start. A change after the lock goes in `events.csv` as a `deviation`. The run log records the commit SHA of the files that were sent.
 

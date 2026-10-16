@@ -1,3 +1,5 @@
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
+>
 > **This file is a review. It is not a GO.**
 >
 > It does not start the run. It does not mean get ready. Do not send. Do not write `GO-BOT.md` from this file. Do not stop or start a node. Do not turn a miner on or off.
@@ -18,8 +20,13 @@ This review follows the shape of the [11 Oct GO](https://github.com/STP-KAS/tn10
 - At most 8 senders, one scheduler, staggered launch, at most one relaunch per sender per minute, no launch under 1.5 GB free RAM.
 - A public node with about 20 errors in a row is cooled for 30 seconds. Load moves to the other live ones. You do not stop the whole side because one public node fails.
 - You call every gate. You do not advance a step on the clock.
-- You ask stp to stop and restart the one desk node in Run A. That node keeps its one miner on through the resync.
-- You ask Build to turn that miner off, then on, only if Run B's gate passes (hashrate share at least 15% over the last hour, block rate about 10/s for 10 minutes). Otherwise you skip Run B and log `skip`.
+- You ask stp to stop and restart the one desk node in Run A. That node never mines. Its one miner is off through all of Run A.
+- You ask Build to turn that miner off, then on, only if Run B's gate passes (hashrate share at least 15% over the last hour, block rate about 10/s for 10 minutes). Otherwise you skip Run B and log `skip`. If B runs, you pause water and KNS for all of B2.
+> **Run B likely skipped.** With n3 not mining in Run A, our last-hour share at B0 will be near 0% and almost surely under 15%. Expect B0 = `skip` (logged in gates.csv), unless the miner is turned on right after Run A and the share passes before 15:45 UTC.
+
+> **Sticky lanes.** Each lane (a chain of transactions that spend each other) is pinned to one public node. A lane moves to another node only after its last transaction is accepted. Never move a lane with a transaction still in flight: on 16 Oct rotating chained lanes across nodes gave orphan rejects at 300 tx/s; sticky lanes gave 20,001/20,001 accepted at up to 600 tx/s.
+> **Node-dead (Kaspa Pulse (@gokugalax, kaspapulse.com)'s rule, also for public nodes).** Pause a node on RPC failing (health read fails, or about 20 RPC errors in a row), not synced, sink lag over 60 s, or virtual DAA still for 30 s. Cooled for at least 30 s; back when a fresh read is healthy. A failed submit counts as a reject, never as sent-and-ok.
+
 - You do not ping Kaspa Pulse. His count for 13:30–16:30 UTC is the record.
 - You log your half from 13:30 UTC. Your chain count reads one named public node. You do not add it to Build's count.
 - Only stp halts.
@@ -40,7 +47,7 @@ This review follows the shape of the [11 Oct GO](https://github.com/STP-KAS/tn10
 
 | Gate | Pass when | If not |
 |---|---|---|
-| G1 | Fee rows every minute, at least 4 of 5 public nodes answer, your senders connected and idle, the one desk miner confirmed on, at least 10 baseline fee rows | Hold. Still open at 14:30 UTC: Run A off. |
+| G1 | Fee rows every minute, at least 4 of 5 public nodes answer, your senders connected and idle, the one desk miner confirmed OFF, at least 10 baseline fee rows | Hold. Still open at 14:30 UTC: Run A off. |
 | A1 | 10 complete minutes at 360 tx/s from you and from Build. Priority and normal on each read node within 2x of the median. | Hold. 30 min: Run A stops. |
 | A2 | Desk node about 9,000 blocks behind. Build is not filling that gap on the public nodes. | Keep it off. 45 min: restart and log `gate-fail`. |
 | A3 | Desk node synced. IBD yes or no logged from its own log. | Hold. 45 min: Run A stops. Frozen (DAA still over 3 min and sink lag over 3 min): one restart. |
@@ -66,7 +73,7 @@ Those runs are the pattern for the files, the columns, the lock, and the node-de
 2. Are those five names still the public TN10 nodes you will use? If one has changed, give the replacement name and no IP.
 3. Do you agree to call the gates above, and to leave the clock where it is when a target is not met?
 4. Do you agree that during A2 you keep your own 360 tx/s on the public nodes, and you do not ask Build to replace its stopped node with public-node sends?
-5. Do you agree you have no miner, and that the one desk miner stays on through Run A?
+5. Do you agree you have no miner, and that the desk miner stays off through Run A, because n3 never mines?
 6. Do you agree Run B is skipped when the last-hour share is under 15%?
 7. Do you agree to log from 13:30 UTC in the columns of [LOGGING.md](../LOGGING.md), with an empty cell when a read did not happen?
 8. Do you agree Pulse's count is the record, and that you will not add your chain count to Build's?

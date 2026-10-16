@@ -1,4 +1,4 @@
-> **DRAFT, NOT ARMED.** Experimental. Testnet-10 only, tKAS has no value.
+> **FROZEN after Pulse agreement 16 Oct.** Experimental. Testnet-10 only, tKAS has no value.
 
 # GO-STP: stp's personal go sheet, Saturday 17 Oct 2026
 

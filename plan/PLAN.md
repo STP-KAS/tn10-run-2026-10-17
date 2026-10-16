@@ -1,4 +1,6 @@
-> **DRAFT, NOT ARMED.** Nothing in this repo starts anything.
+> **FROZEN after Pulse agreement 16 Oct.** Final version for Sat 17 Oct 2026: logging 13:30 UTC, start 14:00 UTC, hard stop 16:30 UTC. Modest Run A and Run B, about 720 tx/s total. Agreed with Kaspa Pulse (@gokugalax, kaspapulse.com) on 16 Oct. Fri 16 Oct evening is cancelled. Changes after this are logged as `deviation`.
+
+> Nothing in this repo starts anything.
 
 > Experimental. Testnet-10 only, tKAS has no value.
 
@@ -63,7 +65,7 @@ Each row: the step only starts when the row above it has reached its target.
 | # | Step | Target (exit condition) to go on | If not reached | Safety cap |
 |---|---|---|---|---|
 | G0 | Prep (by Fri 16 Oct 12:00 UTC / 14:00 CEST) | n3 (stp's desk, non-mining) and Build's node synced; ≥4 of 5 public nodes answer; bot coins ≥10k tKAS spendable, confirmed on a node | Hold and fix. If n3 cannot sync, Run A resyncs Build's node instead (its miner off for all of Run A), logged `deviation` | Not reached by Sat 13:30 UTC: no START, stp decides |
-| G1 | Logging live | Fee reader writing every node each minute; ≥4 of 5 public nodes answer; senders connected and idle; miners confirmed on; ≥10 baseline fee rows per node | Hold, retry | See START anchor above |
+| G1 | Logging live | Fee reader writing every node each minute; ≥4 of 5 public nodes answer; senders connected and idle; desk miner confirmed off; ≥10 baseline fee rows per node | Hold, retry | See START anchor above |
 | A1 | Baseline under load | ≥10 complete minutes at the modest load; every node's priority and normal within 2x of the median (an outlier is logged as pre-existing and the run goes on) | Hold, keep reading | 30 min without a clean baseline: Run A stops, `gate-fail` |
 | A2 | Stop n3 (non-mining, `node-stop`) | n3 is **≥9,000 blocks behind** the network (about 15 min off at 10 blocks/s) | Keep n3 off | Off 45 min without the gap: restart anyway and log `gate-fail` (no resync test) |
 | A3 | Restart n3, same flags (`node-restart`) | n3 reports synced (`node-synced`, exact second, catch-up time logged); **IBD yes/no logged** from n3's own log and RPC (IBD start/end lines, sync state) | Hold, keep logging | Not synced after 45 min: Run A stops, `gate-fail`; n3 frozen (DAA still > 3 min and sink lag > 3 min): restart once, marked |
@@ -158,6 +160,12 @@ The message sent earlier used the old fixed time slots. If stp sends an update, 
 
 One kaspad on this desk. A second node on this machine stays retired. Pulse's count for 13:30–16:30 UTC is the record. Bot and Build send.
 
-- Exactly one miner stays pointed at the desk node through Run A, including while that node is stopped and catching up, so we can see how a mining node's fee estimate behaves. The other miners on this PC stay off for the window. This is a `deviation`: the morning rule was that n3 never mines.
-- Run B still turns that one miner off, then back on.
+- The desk node is n3 and never mines. Its one miner is off through all of Run A, including the stop and the catch-up. The other miners on this PC stay off for the window. 16 Oct (stp, later decision): n3 never mines. This replaces the earlier 16 Oct one-miner-through-Run-A line. The desk node is Build's one kaspad and is n3; Build's desk node is only a partial monitor during A2/A3 (it is stopped and resyncing), so the five public nodes carry the continuous fee and mempool reads.
+- Run B (only if B0 passes) turns that one miner on for B1, off for B2, on for B3. Water and KNS pause for all of B2 (Pulse, 16 Oct).
+> **Run B likely skipped.** With n3 not mining in Run A, our last-hour share at B0 will be near 0% and almost surely under 15%. Expect B0 = `skip` (logged in gates.csv), unless the miner is turned on right after Run A and the share passes before 15:45 UTC.
+
+> **Not Saturday.** The congestion ramp (up to about 8,000 tx/s, soft freeze at 80,000 mempool, cut at 90,000, below the 100,000 panic) is a future run, not Saturday. Saturday keeps the modest load and keeps the 80k soft freeze / 90k cut only as safety margins.
+
+> **Target first.** Same principle as last run. The target is the goal, not the timeframe. We run inside a closed window (14:00-16:30 UTC), but the tx target is what counts, so the bot and Build keep going. On a bug or error: restart, find a fix, continue within safety caps.
+
 - Build's senders start on this node only. If the node cannot hold the rate, some senders move to the five public nodes, about a quarter of Build's rate, the same relief as 11 Oct. Transactions that spend each other stay on one route.
