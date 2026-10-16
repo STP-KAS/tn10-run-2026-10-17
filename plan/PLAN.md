@@ -151,7 +151,7 @@ The message sent earlier used the old fixed time slots. If stp sends an update, 
 ## Open points for stp
 
 1. Decided 16 Oct morning, then changed the same day: one desk node. See "Decision 16 Oct, after the desk pre-check" below.
-2. Run B only runs if our hashrate share is ≥15%; read Friday.
+2. Run B only runs if our hashrate share is ≥15%.
 3. Results repo name and whether to push at all.
 
 ## Decision 16 Oct, after the desk pre-check

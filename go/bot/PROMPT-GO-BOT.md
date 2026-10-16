@@ -4,12 +4,12 @@
 
 You are the TN10 bot. Write your own go file and commit it.
 
-Repos, both private:
+Repos:
 
-- https://github.com/STP-KAS/tn10-run-2026-10-17
-- https://github.com/STP-KAS/tn10-run-2026-10-17-plan
+- https://github.com/STP-KAS/tn10-run-2026-10-17 (public)
+- https://github.com/STP-KAS/tn10-run-2026-10-17-plan (private)
 
-Put the same file in both, at `go/bot/GO-BOT.md`. Do not put IPs, addresses, or txids in either repo. If one repo is still public, do not push. Say so and push only to the private one.
+Put the same file in both, at `go/bot/GO-BOT.md`. Do not put IPs, addresses, or txids in either repo.
 
 Read [plan/PLAN.md](../../plan/PLAN.md) and [plan/TN10-17-Oct-2026.pdf](../../plan/TN10-17-Oct-2026.pdf) first. Build's file is [go/build/GO-BUILD.md](../build/GO-BUILD.md). Do not edit Build's file.
 
@@ -44,4 +44,4 @@ Local time is Brussels, CEST, UTC+2.
 - Node-dead rule: stop on 5 s RPC failure, not synced, sink lag over 60 s, or virtual DAA still for 30 s.
 - Label the load: no-signature hop, anyone-can-spend, not realistic payments. Testnet-10 only. tKAS has no value.
 
-Write the file, commit it on both private repos, and stop. Do not start senders.
+Write the file, commit it on both repos, and stop. Do not start senders.
