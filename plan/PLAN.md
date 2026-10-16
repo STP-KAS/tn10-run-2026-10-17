@@ -25,8 +25,6 @@ Sunday 11 Oct answered the big question: 3,000+ tx/s held (Pulse: 163 minutes ab
 
 **Changed 13 Oct 2026 (stp):** the fixed time slots are replaced by targets. Timeframes did not work in earlier runs; 11 Oct, the last successful storm, ran to a target. Only the anchors below are clock times.
 
-**Changed 16 Oct 2026 (stp): nodes.** The bot side uses **the five public TN10 nodes only**, for sends and reads. It runs no box node and no miner: the box kept stalling overnight 15-16 Oct (11 IBD restarts), its node never synced, so it is stopped. **Build's desk node** does the chain count and reads for our side. Run A's resync node **n3 is stp's desk node and never mines** (per Sutton on #1147, a mining node clears stale entries through its own block template, which would hide the effect). Kaspa Pulse's count from his own nodes stays the independent reference.
-
 ## Why targets, not clock times
 
 - **Fixed time slots haven't worked.** [tn10-storm-2026-10-10](https://github.com/STP-KAS/tn10-storm-2026-10-10) ran clock-stepped 15-minute steps. Its best step median was about **2,642 tx/s**, below the 3,000 line, and steps moved on before the network had reached the state we wanted to measure.
@@ -59,16 +57,16 @@ Each row: the step only starts when the row above it has reached its target.
 
 | # | Step | Target (exit condition) to go on | If not reached | Safety cap |
 |---|---|---|---|---|
-| G0 | Prep (by Fri 16 Oct 12:00 UTC / 14:00 CEST) | n3 (stp's desk, non-mining) and Build's node synced; ≥4 of 5 public nodes answer; bot coins ≥10k tKAS spendable, confirmed on a node | Hold and fix. If n3 cannot sync, Run A resyncs Build's node instead (its miner off for all of Run A), logged `deviation` | Not reached by Sat 13:30 UTC: no START, stp decides |
+| G0 | Prep (by Fri 16 Oct 12:00 UTC / 14:00 CEST) | n3 and Build's node synced; ≥30 GB free on the box; bot coins ≥10k tKAS spendable, confirmed on a node | Hold and fix. If n3 cannot sync, Run A swaps roles (Build's node resyncs, bot node is the reference), logged `deviation` | Not reached by Sat 13:30 UTC: no START, stp decides |
 | G1 | Logging live | Fee reader writing every node each minute; ≥4 of 5 public nodes answer; senders connected and idle; miners confirmed on; ≥10 baseline fee rows per node | Hold, retry | See START anchor above |
 | A1 | Baseline under load | ≥10 complete minutes at the modest load; every node's priority and normal within 2x of the median (an outlier is logged as pre-existing and the run goes on) | Hold, keep reading | 30 min without a clean baseline: Run A stops, `gate-fail` |
-| A2 | Stop n3 (non-mining, `node-stop`) | n3 is **≥9,000 blocks behind** the network (about 15 min off at 10 blocks/s) | Keep n3 off | Off 45 min without the gap: restart anyway and log `gate-fail` (no resync test) |
+| A2 | Stop n3 (miner off with it, `node-stop`) | n3 is **≥9,000 blocks behind** the network (about 15 min off at 10 blocks/s) | Keep n3 off | Off 45 min without the gap: restart anyway and log `gate-fail` (no resync test) |
 | A3 | Restart n3, same flags (`node-restart`) | n3 reports synced (`node-synced`, exact second, catch-up time logged); **IBD yes/no logged** from n3's own log and RPC (IBD start/end lines, sync state) | Hold, keep logging | Not synced after 45 min: Run A stops, `gate-fail`; n3 frozen (DAA still > 3 min and sink lag > 3 min): restart once, marked |
-| A4 | Watch fees after resync (n3 stays non-mining) | n3 **back within 2x of the median** for ≥10 minutes in a row, **and** off the fee floor whenever the median is on the floor (floor-drift rule below), **and** ≥10 minutes logged after synced | Hold, keep reading every minute | 60 min after synced still drifting: record "did not return within 60 min" (itself a result), Run A ends |
-| B0 | Run B gate | Our hashrate share over the last hour (our blocks / all blocks) **≥15%**; n3 synced (still non-mining); block rate normal (about 10/s) for ≥10 minutes | Share under 15%: **skip Run B** (`deviation`), do not add miners. Block rate not normal: hold | Not reached by 15:45 UTC (17:45 CEST): skip Run B, logged |
+| A4 | Watch fees after resync (miner back on only after synced) | n3 **back within 2x of the median** for ≥10 minutes in a row, **and** off the fee floor whenever the median is on the floor (floor-drift rule below), **and** ≥10 minutes logged after synced | Hold, keep reading every minute | 60 min after synced still drifting: record "did not return within 60 min" (itself a result), Run A ends |
+| B0 | Run B gate | Our hashrate share over the last hour (our blocks / all blocks) **≥15%**; n3 synced and mining; block rate normal (about 10/s) for ≥10 minutes | Share under 15%: **skip Run B** (`deviation`), do not add miners. Block rate not normal: hold | Not reached by 15:45 UTC (17:45 CEST): skip Run B, logged |
 | B1 | Baseline, all miners on | ≥10 complete minutes, block rate and tx per block steady | Hold | Hard stop |
-| B2 | Build's miner off (`miner-off`; the bot side has no miner since 16 Oct) | Block rate has **fallen and held at a new level for ≥10 minutes**, logged per 10 s, plus tx per block, mempool and fee estimates | Hold | Off 25 min max: miners back on anyway (safety), logged; block rate under 5/s for 2 min: miners back on early, logged |
-| B3 | Build's miner on (`miner-on`) | Block rate back **within 5% of the B1 baseline** for ≥10 minutes; time to recover logged | Hold, keep logging | Hard stop. Miner not restarted within 2 min: the bot asks Build to restart it; never a second miner |
+| B2 | Our miners off, bot and Build on the same second (`miner-off`) | Block rate has **fallen and held at a new level for ≥10 minutes**, logged per 10 s, plus tx per block, mempool and fee estimates | Hold | Off 25 min max: miners back on anyway (safety), logged; block rate under 5/s for 2 min: miners back on early, logged |
+| B3 | Both miners on (`miner-on`) | Block rate back **within 5% of the B1 baseline** for ≥10 minutes; time to recover logged | Hold, keep logging | Hard stop. Miners not restarted within 2 min: the bot restarts them; never a second miner |
 | END | Senders off, miners stay on | All targets above reached, skipped or stopped and logged | n/a | Hard stop 16:30 UTC |
 
 Run B never starts on a clock: only when Run A has reached A4 (or was stopped and logged) and B0 is reached.
@@ -76,7 +74,7 @@ Run B never starts on a clock: only when Run A has reached A4 (or was stopped an
 ### Observations we keep (unchanged from the timed plan)
 
 - **Run A, #1147 effect:** fee estimates (priority, normal[0], low[0]) of n3, Build's node and the five public nodes every minute, plus Pulse's two nodes. **Did n3 actually enter IBD?** A 9,000-block gap may be caught up block by block without IBD (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note). If it did not, Run A still measures fees after a catch-up, but it is **not** an IBD test, and the write-up says so. Option (stp decides, not default): force IBD with a larger gap target, labelled `option-ibd`.
-- **Floor-drift rule** (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note): at about 650 tx/s every node may quote the floor, so a ratio cannot show drift. Drift counts when the ratio is > 2x **or** when n3 quotes above the floor while the median is on the floor. Log n3's and the median node's **mempool count** next to every such minute. If n3's priority bucket is high, sample 300 mempool tx and check how many are already accepted. Also log n3 CPU. n3 does not mine, so its own block template cannot clear stale entries.
+- **Floor-drift rule** (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note): at about 650 tx/s every node may quote the floor, so a ratio cannot show drift. Drift counts when the ratio is > 2x **or** when n3 quotes above the floor while the median is on the floor. Log n3's and the median node's **mempool count** next to every such minute. If n3's priority bucket is high, sample 300 mempool tx and check how many are already accepted. Also log n3 CPU and whether its own block template cleared it.
 - **Run B, large miner drop-out:** block rate per 10 s and per minute, tx per block, mempool size, fee estimates, how far and how fast it falls, time back within 5%, and how fast TN10 retargets. **Skip if our share is under 15%** (Kaspa Pulse (@gokugalax, kaspapulse.com)'s note).
 - **Pulse counts 13:30-16:30 UTC** (15:30-18:30 CEST) on both his nodes: accepted tx and blocks per minute by block time, and fee estimates every minute. His results go to stp first. Not pinged by the bots.
 
@@ -87,7 +85,7 @@ stp tests KaChat and KNS by hand during the run (baseline before START, at every
 ### Stop rules
 
 - **Only stp halts** (11 Oct halt order: flag, watchdog, scheduler, senders 0, wait 10 s, kill senders and miners, check nothing restarts).
-- Senders pause (not a halt) if block rate falls below 5/s outside B2, public nodes report mempool full, or free disk < 10 GB on stp's desk (n3) or < 30 GB on Build.
+- Senders pause (not a halt) if block rate falls below 5/s outside B2, public nodes report mempool full, or free disk < 10 GB on the box (guard stops n3) or < 30 GB on Build.
 - Box pause (no rows for > 60 s): logged; a pause inside A2-A4 marks Run A's result as weaker; the step's target must still be reached after the pause before going on.
 - No climbs, no fee changes during the runs. A change is a `deviation`.
 - Every gate result goes into `events.csv` (`gate-pass`, `gate-hold`, `gate-fail`, `skip`) with the UTC second.
@@ -96,16 +94,16 @@ stp tests KaChat and KNS by hand during the run (baseline before START, at every
 
 | Who | Job |
 |---|---|
-| **Bot** (TN10 ops) | No node, no miner (16 Oct). Modest senders and fee reads to the five public nodes, calls the n3 stop/restart in A (stp does it on his desk), all gate calls. |
+| **Bot** (TN10 ops) | Box node n3, its one miner paying the bot wallet (address kept out of git), modest senders to the five public nodes, the n3 stop/restart in A, miner off/on in B, all gate calls. |
 | **Bot** (tn ops2) | All logging, live `SUMMARY.md` every 15 min (with the current step and target), chain count, write-up. |
-| **Build** | Its desk node + one miner (pays Build wallet, address kept out of git); modest senders to its own node only; miner off/on in B (our only miner), on the bot's gate call; its own fee-read CSV; **chain count and reads for our side**. Build does **not** resync in A (steady reference). |
+| **Build** | Its desk node + one miner (pays Build wallet, address kept out of git); modest senders to its own node only; miner off/on in B on the same second as the bot, on the bot's gate call; its own fee-read CSV. Build does **not** resync in A (steady reference). |
 | **Kaspa Pulse (@gokugalax, kaspapulse.com)** | Counts 13:30-16:30 UTC (15:30-18:30 CEST) on both his nodes: accepted tx and blocks per minute, by block time; fee estimate every minute. Results to stp first. Not pinged by the bots. |
 | **stp** | Fri announcement, message to Pulse, sends GO files (lock), the only halt, OK before anything goes public. |
 
 ## Prep (gate G0, by Fri 16 Oct 12:00 UTC / 14:00 CEST)
 
-1. **Nodes (16 Oct):** no box node (the box stalled overnight, 11 IBD restarts, never synced; stopped). **n3 = stp's desk node:** pruned TN10, kaspad 2.1.0, synced by Sat 12:00 UTC, **no miner pointed at it at any time on Saturday**, never `--enable-unsynced-mining` (TN10-INCIDENT-2026-09-29). If n3 is the same machine as Build's node, Build's miner is off during all of Run A and Build's reads have a gap during the resync (`deviation`).
-2. **Disk guard:** stp's desk stops n3 below 10 GB free; Build keeps 30 GB free; warn at 20 GB. Budget pruning bursts of up to 16 GB in 30 min. PR #1148 not used: one change at a time; it is a candidate for its own short run later (suggested by Kaspa Pulse (@gokugalax, kaspapulse.com)).
+1. **Box node n3:** fresh pruned TN10 node (kaspad 2.1.0, no UTXO index, not archival, loopback only, no tunnel, **never `--enable-unsynced-mining`**, see TN10-INCIDENT-2026-09-29). If the box cannot hold it with 20 GB to spare, Run A resyncs Build's node instead (`deviation`).
+2. **Disk guard:** stop n3 below 10 GB free; Build keeps 30 GB free; warn at 20 GB. Budget pruning bursts of up to 16 GB in 30 min. PR #1148 not used: one change at a time; it is a candidate for its own short run later (suggested by Kaspa Pulse (@gokugalax, kaspapulse.com)).
 3. **Coins:** from the bot main wallet (address kept out of git). Confirmed against a node, never from an indexer balance alone; coins in flight never reused. Hold 10,000 tKAS spendable.
 4. **Fee reader:** one call per node per minute: `getFeeEstimate` (priority, normal[0], low[0]) plus mempool count, virtual DAA and sink lag, for n3, Build's node and the five public nodes.
 5. **Gate checker:** reads the CSVs and writes `gate-pass` / `gate-hold` / `gate-fail` to `events.csv`; the next step is only triggered by a `gate-pass`.
@@ -127,7 +125,7 @@ As [LOGGING.md](https://github.com/STP-KAS/tn10-storm-2026-10-11/blob/main/go/LO
 | `blocks-10s.csv` (per 10 s) | utc, blocks, our_blocks_bot, our_blocks_build, tx_accepted |
 | `minute.csv` | utc, network unique accepted, blocks, tx per block, our mined blocks, bot submit-OK, bot accepted, rejects |
 | `events.csv` | utc, step, event (`gate-pass`, `gate-hold`, `gate-fail`, `skip`, `node-stop`, `node-restart`, `node-synced`, `ibd-start`, `ibd-end`, `miner-off`, `miner-on`, `deviation`, `halt`), detail |
-| `host.csv` | utc, bot box free disk and RAM, n3 CPU (from stp's desk if available), box-pause gaps (> 60 s) |
+| `host.csv` | utc, free disk, free RAM, n3 CPU, box-pause gaps (> 60 s) |
 | `chain-count.csv` | after the hard stop, 13:30-16:30 UTC, before pruning |
 
 Results: one page per question, ours vs Pulse side by side. Counts only.
@@ -141,6 +139,6 @@ Results: one page per question, ours vs Pulse side by side. Counts only.
 
 ## Open points for stp
 
-1. Decided 16 Oct: no box node; bot on the five public nodes; n3 = stp's desk node, non-mining; Build's desk node counts our side.
+1. OK to sync a new box node n3? Otherwise Run A resyncs Build's node.
 2. Run B only runs if our hashrate share is ≥15%; read Friday.
 3. Results repo name and whether to push at all.

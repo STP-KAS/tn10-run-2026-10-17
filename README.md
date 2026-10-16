@@ -33,8 +33,7 @@
 | Kaspa Pulse's counting window | 13:30-16:30 | 15:30-18:30 |
 | Hard stop (safety cap) | 16:30 | 18:30 |
 
-- **Nodes (changed 16 Oct):** bot sends and reads go to the five public TN10 nodes only (the box node could not sync: the box stalled overnight, 11 IBD restarts). Build's desk node does the chain count and reads for our side. n3, the Run A resync node, is stp's desk node and never mines. Kaspa Pulse's own count is the independent reference.
 - **Run A, fees after a resync (#1147):** baseline → n3 off until ≥9,000 blocks behind → resync, IBD yes/no logged → watch until back within 2x for 10 min (floor-drift rule, mempool count logged).
 - **Run B, a large miner drops out:** only if our hashrate share is ≥15% → baseline → miners off until block rate settles → miners on until back within 5%.
 - Load about 600 tx/s at fixed fees, no climbs, no quote-based skipping.
-- 11 Oct rules kept: node-dead rule, disk guards, freeze restart, one miner (Build's; the bot side has none since 16 Oct), count soon after the end, leak-scan, only stp halts.
+- 11 Oct rules kept: node-dead rule, disk guards, freeze restart, one miner per side, count soon after the end, leak-scan, only stp halts.
