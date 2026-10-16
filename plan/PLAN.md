@@ -50,7 +50,7 @@ The last successful storm, [tn10-storm-2026-10-11](https://github.com/STP-KAS/tn
 | Logging and fee reads start | Sat 17 Oct 13:30 | 15:30 |
 | **START** (Run A, modest load on), only if gate G1 is reached. Two hours after the pre-test. | **14:00** | **16:00** |
 | Kaspa Pulse's counting window | **13:30-16:30** | 15:30-18:30 |
-| **Hard stop** (safety cap): senders off and miners on, wherever the run is | **16:30** | **18:30** |
+| **Hard stop** (safety cap): senders off; the one desk miner stays off if Run B was skipped (on only if Run B ran), wherever the run is | **16:30** | **18:30** |
 
 Handing over GO-BUILD or GO-BOT means get ready for the pre-test. It does not start the run. The shared rule book is [go/README.md](../go/README.md). Logging columns are [go/LOGGING.md](../go/LOGGING.md). Build reads [go/build/GO-BUILD.md](../go/build/GO-BUILD.md). The bot first reviews [go/bot/REVIEW-GO.md](../go/bot/REVIEW-GO.md), which is not a GO. After stp accepts that review, the bot writes go/bot/GO-BOT.md from [go/bot/PROMPT-GO-BOT.md](../go/bot/PROMPT-GO-BOT.md). The sheet with the clocks is [plan/TN10-17-Oct-2026.pdf](TN10-17-Oct-2026.pdf).
 
@@ -64,17 +64,17 @@ Each row: the step only starts when the row above it has reached its target.
 
 | # | Step | Target (exit condition) to go on | If not reached | Safety cap |
 |---|---|---|---|---|
-| G0 | Prep (by Fri 16 Oct 12:00 UTC / 14:00 CEST) | n3 (stp's desk, non-mining) and Build's node synced; ≥4 of 5 public nodes answer; bot coins ≥10k tKAS spendable, confirmed on a node | Hold and fix. If n3 cannot sync, Run A resyncs Build's node instead (its miner off for all of Run A), logged `deviation` | Not reached by Sat 13:30 UTC: no START, stp decides |
+| G0 | Prep (by Fri 16 Oct 12:00 UTC / 14:00 CEST) | n3 synced (stp's desk node, which is also Build's one desk node; non-mining); ≥4 of 5 public nodes answer; bot coins ≥10k tKAS spendable, confirmed on a node | Hold and fix. There is no second desk node to fall back to; if n3 cannot sync, stp decides, logged `deviation` | Not reached by Sat 13:30 UTC: no START, stp decides |
 | G1 | Logging live | Fee reader writing every node each minute; ≥4 of 5 public nodes answer; senders connected and idle; desk miner confirmed off; ≥10 baseline fee rows per node | Hold, retry | See START anchor above |
 | A1 | Baseline under load | ≥10 complete minutes at the modest load; every node's priority and normal within 2x of the median (an outlier is logged as pre-existing and the run goes on) | Hold, keep reading | 30 min without a clean baseline: Run A stops, `gate-fail` |
 | A2 | Stop n3 (non-mining, `node-stop`) | n3 is **≥9,000 blocks behind** the network (about 15 min off at 10 blocks/s) | Keep n3 off | Off 45 min without the gap: restart anyway and log `gate-fail` (no resync test) |
 | A3 | Restart n3, same flags (`node-restart`) | n3 reports synced (`node-synced`, exact second, catch-up time logged); **IBD yes/no logged** from n3's own log and RPC (IBD start/end lines, sync state) | Hold, keep logging | Not synced after 45 min: Run A stops, `gate-fail`; n3 frozen (DAA still > 3 min and sink lag > 3 min): restart once, marked |
 | A4 | Watch fees after resync (n3 stays non-mining) | n3 **back within 2x of the median** for ≥10 minutes in a row, **and** off the fee floor whenever the median is on the floor (floor-drift rule below), **and** ≥10 minutes logged after synced | Hold, keep reading every minute | 60 min after synced still drifting: record "did not return within 60 min" (itself a result), Run A ends |
 | B0 | Run B gate | Our hashrate share over the last hour (our blocks / all blocks) **≥15%**; n3 synced (still non-mining); block rate normal (about 10/s) for ≥10 minutes | Share under 15%: **skip Run B** (`deviation`), do not add miners. Block rate not normal: hold | Not reached by 15:45 UTC (17:45 CEST): skip Run B, logged |
-| B1 | Baseline, all miners on | ≥10 complete minutes, block rate and tx per block steady | Hold | Hard stop |
+| B1 | Baseline, the one desk miner on | ≥10 complete minutes, block rate and tx per block steady | Hold | Hard stop |
 | B2 | Build's miner off (`miner-off`; the bot side has no miner since 16 Oct) | Block rate has **fallen and held at a new level for ≥10 minutes**, logged per 10 s, plus tx per block, mempool and fee estimates | Hold | Off 25 min max: miners back on anyway (safety), logged; block rate under 5/s for 2 min: miners back on early, logged |
 | B3 | Build's miner on (`miner-on`) | Block rate back **within 5% of the B1 baseline** for ≥10 minutes; time to recover logged | Hold, keep logging | Hard stop. Miner not restarted within 2 min: the bot asks Build to restart it; never a second miner |
-| END | Senders off, miners stay on | All targets above reached, skipped or stopped and logged | n/a | Hard stop 16:30 UTC |
+| END | Senders off; desk miner off if Run B was skipped | All targets above reached, skipped or stopped and logged | n/a | Hard stop 16:30 UTC |
 
 Run B never starts on a clock: only when Run A has reached A4 (or was stopped and logged) and B0 is reached.
 
