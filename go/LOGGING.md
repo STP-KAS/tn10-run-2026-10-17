@@ -42,10 +42,10 @@ Header rows below are the shape. They are not results.
 ### pulse-minute.csv (bot, for Kaspa Pulse (@gokugalax, kaspapulse.com))
 
 ```
-minute_utc,side,step,mempool_max,mempool_muon,mempool_electron,mempool_neutrino,mempool_boson,mempool_vector,submit_ok,rejects,rej_orphan,rej_double_spend,rej_fee,rej_mass,rej_rpc_timeout,rej_rpc_closed,rej_other
+minute_utc,side,step,target_tx_s,mempool_max,mempool_muon,mempool_electron,mempool_neutrino,mempool_boson,mempool_vector,nodes_read,submit_ok,rejects,rej_orphan,rej_double_spend,rej_mempool_full,rej_fee_too_low,rej_mass,rej_rpc_timeout,rej_rpc_closed,rej_other
 ```
 
-One row per minute. Mempool from each public node's own read (empty if it did not answer). Rejects by reason from the senders' own submits.
+One row per minute. Mempool is the per-minute max of each public node's own read every 5 s (empty if it did not answer). Rejects by reason from the senders' own submits.
 
 ### sec.csv
 
