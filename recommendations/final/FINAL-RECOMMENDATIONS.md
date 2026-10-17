@@ -1,8 +1,8 @@
 # Final recommendations from the TN10 run of Sat 17 Oct 2026
 
-> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20 agreed by stp (17 Oct, 19:47 CEST). F21–F26 agreed by stp (17 Oct, 19:53 CEST). F27–F29 agreed by stp (17 Oct, 20:07 CEST). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
+> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20 agreed by stp (17 Oct, 19:47 CEST). F21–F26 agreed by stp (17 Oct, 19:53 CEST). F27–F29 agreed by stp (17 Oct, 20:07 CEST). Tower removed as an option (stp, 20:11 CEST). Full report: [FINAL-REPORT.md](FINAL-REPORT.md). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
 
-Build reviews this file on Tuesday.
+Build reviews this on Tuesday.
 
 **Next:** Compare with Kaspa Pulse's own counts once received, then fine-tune.
 
@@ -30,7 +30,7 @@ Testnet-10 only. tKAS has no value. Counts only. This does not change the frozen
 
 **Build: agree.** It is an extra path, not the repair for 17 Oct: the bot lost sends in VM pauses, and the desk sender logged 1,084,080 accepts and 0 rejects with 83 minutes that have no second.
 
-- **Decided by stp:** a separate machine, the **ASUS UX501V laptop** (it needs a new 19 V 6.32 A 120 W charger; the tower makes odd noises), runs **only the TN10 public node**. It runs **continuously, 24/7, not just on run days**, so it stays synced and ready.
+- **Decided by stp:** a separate machine, the **ASUS UX501V laptop** (it needs a new 19 V 6.32 A 120 W charger). The black desktop tower is broken and out (stp, 20:11 CEST), so the laptop is the only node machine, runs **only the TN10 public node**. It runs **continuously, 24/7, not just on run days**, so it stays synced and ready.
 - **24/7 settings:** never sleep; nothing happens on lid close; battery charge limit around 60–80 % if the laptop supports it; wired through a **USB-Ethernet adapter** (no RJ45 port); hibernate off.
 - **Hardware:** SSD with at least 100 GB free; 16 GB RAM preferred.
 - Synced and tested before any run. The node itself never mines. For Run B it serves the miners' block templates over gRPC through a tunnel (**see F19**), so its uptime is part of Run B. Kept private: wRPC on the LAN or behind a tunnel, with no IP, port or tunnel URL in git.
@@ -166,7 +166,7 @@ Run every sender, miner and logger as an OS service that restarts itself, with t
 
 ### F23. Two nodes of our own. Agreed (stp, 19:53 CEST)
 
-Besides the 24/7 laptop node (F1), run a second node somewhere else: the repaired tower or a small VPS. Then the runs depend neither on one machine of ours nor on public nodes that share backends (F4). Same rules as F1: synced and tested before any run, kept private, no IP in git, never n3.
+Besides the 24/7 laptop node (F1), run a second node somewhere else: another machine or a small VPS. The black desktop tower is broken and out (stp, 20:11 CEST). Then the runs depend neither on one machine of ours nor on public nodes that share backends (F4). Same rules as F1: synced and tested before any run, kept private, no IP in git, never n3.
 
 ### F24. A simple live status page. Agreed (stp, 19:53 CEST)
 
