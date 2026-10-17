@@ -176,7 +176,7 @@ When the run stops, a script generates the summary, the totals and a few charts 
 
 ### F26. The scripts in their own repo. Agreed (stp, 19:53 CEST)
 
-The scripts we used, with config examples, a checklist and the log format, live in their own repo: [STP-KAS/tn10-run-kit](https://github.com/STP-KAS/tn10-run-kit). It stays private until stp has reviewed it, so the link only works for collaborators until then. Shared as-is.
+The scripts we used, with config examples, a checklist and the log format, are kept in a separate private repo. They're shared as-is, and stp reviews them before anything is made public.
 
 ## Open items (all resolved)
 
