@@ -1,6 +1,6 @@
-# Recommendations for the next TN10 round
+# Recommendations from the TN10 run of Sat 17 Oct 2026
 
-From the Sat 17 Oct 2026 run. Testnet-10 only. The evidence is in [logs/bot/2026-10-17/SUMMARY.md](../logs/bot/2026-10-17/SUMMARY.md). None of this changes the frozen 17 Oct plan or GO files. Each item goes into the next plan only once Kaspa Pulse (@gokugalax, kaspapulse.com) agrees.
+From the Sat 17 Oct 2026 run. Testnet-10 only. The evidence is in [logs/bot/2026-10-17/SUMMARY.md](../logs/bot/2026-10-17/SUMMARY.md). None of this changes the frozen 17 Oct plan or GO files. Each item goes into a run plan only once Kaspa Pulse (@gokugalax, kaspapulse.com) agrees.
 
 ## 1. stp's decision: a second machine (ASUS UX501V laptop) with its own TN10 public node, "share the load"
 
@@ -11,13 +11,13 @@ From the Sat 17 Oct 2026 run. Testnet-10 only. The evidence is in [logs/bot/2026
 Conditions:
 - **ASUS UX501V specifics:** SSD with at least 100 GB free; 16 GB RAM preferred; a **USB-Ethernet adapter** for the wired link, since the laptop has no RJ45 port. Keep it on the charger and set it to never sleep, never sleep with the lid closed, and never hibernate.
 - **Always-on:** wired network, SSD, 16 GB+ RAM (preferred), about 100 GB free disk.
-- **Synced and tested at least a day before the run.** Several of the earlier problems came from nodes that had not finished syncing.
+- **Synced and tested before any run.** Several of the earlier problems came from nodes that had not finished syncing.
 - **Sends and monitors only; does not mine** (the same rule as n3).
 - **Kept private:** its wRPC stays on the LAN or behind a tunnel. No IP, port or tunnel URL goes into git.
 - **An extra, independent path.** The public nodes stay in the plan; this node adds to them and does not replace them.
 - **Goes into the plan only after Kaspa Pulse agrees.**
 
-Why: today the five public nodes were about three independent backends (electron, neutrino and boson look like one). A fault there would take out most of the sending paths at once. Our own node on separate hardware is a truly independent path, and it is not exposed to the box VM pauses (item 2). Once it is up, the bot can check from outside that it stays synced, so it is proven well before the run.
+Why: today the five public nodes were about three independent backends (electron, neutrino and boson look like one). A fault there would take out most of the sending paths at once. Our own node on separate hardware is a truly independent path, and it is not exposed to the box VM pauses (item 2). Once it is up, the bot can check from outside that it stays synced, so it is proven well before any run.
 
 ## 2. Don't run the bot sender on the box VM alone
 
@@ -34,7 +34,7 @@ Today, "five nodes" were about three backends (muon, vector, electron/neutrino/b
 ## 5. Mining for Run B
 
 - Use the **wRPC SDK miner on the public nodes** (kaspa-miner can't connect because gRPC is closed on them). The new node is an option only if Pulse agrees, and n3 never mines.
-- **Make the Node wRPC SDK miner the standard Run B package** (the one Build used today; a 60 s test gave 13 of 13 blocks accepted). Don't plan on kaspa-miner for public nodes. **Do the 60 s test mine about a day before the run**, not on run day: today it was found and packaged with only a few hours to go.
+- **Make the Node wRPC SDK miner the standard Run B package** (the one Build used today; a 60 s test gave 13 of 13 blocks accepted). Don't plan on kaspa-miner for public nodes. **Do the 60 s test mine before any run**, not on run day: today it was found and packaged with only a few hours to go.
 - **Measure the share on-chain** (blocks paying the miner's own TN10 address ÷ all blocks in the window, counted from a node, with only counts in git), so that B0 can be verified instead of depending on a reported number.
 - **Start the miners at least 1 hour before B0**, so the share has a full window.
 - **Decide B0 with time to spare:** measure the share on-chain from 15:00Z and decide by 15:30Z (for a 15:45Z B0 slot). Today there was no measured share at 15:45Z and the call slipped to 16:00Z.
@@ -46,7 +46,7 @@ Per-node fee reads were sometimes empty (29 to 37 per node in the run window) wh
 
 ## 7. Re-test the pre-check routine end to end
 
-Today's pre-check and logging routine was cut off before it finished (the sender, fee reads and hard stop survived, but one hand-off signal had to be sent by hand). Run the whole routine once end to end on the day before, on the machine that will actually send.
+Today's pre-check and logging routine was cut off before it finished (the sender, fee reads and hard stop survived, but one hand-off signal had to be sent by hand). Run the whole routine once end to end before any run, on the machine that will actually send.
 
 ## 8. For Kaspa Pulse
 

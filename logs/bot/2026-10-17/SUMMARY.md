@@ -109,4 +109,4 @@ There were **six stalls in total**: one before the run and five during sending. 
 
 - `chain-count.csv`, `steps.csv`, `confirm.csv` and the `ntp.csv` end row were not produced by the bot today.
 - Build's data now exists: [logs/build/2026-10-17/SUMMARY.md](../../build/2026-10-17/SUMMARY.md), `desk-sender.csv` and `miners.csv` (desk sender 1,084,080 sent and accepted, 0 rejects; miners and share above). Build's `FOR-TN10-OPS-result-1017.txt` was not received.
-- Recommendations for the next round: [../../../recommendations/RECOMMENDATIONS.md](../../../recommendations/RECOMMENDATIONS.md).
+- Recommendations: [../../../recommendations/RECOMMENDATIONS.md](../../../recommendations/RECOMMENDATIONS.md).
