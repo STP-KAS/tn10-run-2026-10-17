@@ -1,6 +1,8 @@
 # Final recommendations from the TN10 run of Sat 17 Oct 2026
 
-> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20 agreed by stp (17 Oct, 19:47 CEST). F21–F26 agreed by stp (17 Oct, 19:53 CEST). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
+> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20 agreed by stp (17 Oct, 19:47 CEST). F21–F26 agreed by stp (17 Oct, 19:53 CEST). F27–F29 agreed by stp (17 Oct, 20:07 CEST). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
+
+Build reviews this file on Tuesday.
 
 **Next:** Compare with Kaspa Pulse's own counts once received, then fine-tune.
 
@@ -177,6 +179,37 @@ When the run stops, a script generates the summary, the totals and a few charts 
 ### F26. The scripts in their own repo. Agreed (stp, 19:53 CEST)
 
 The scripts we used, with config examples, a checklist and the log format, are kept in a separate private repo. They're shared as-is, and stp reviews them before anything is made public.
+
+### F27. Cause of the box freezes. Agreed (stp, 20:07 CEST)
+
+From a read-only investigation of the box after the run.
+
+**What happened:** the box VM was **paused from outside by the hosting platform**. It didn't crash, and our load didn't cause it.
+- All processes and the guest clock stopped together.
+- Free RAM before the freezes was 2.7–12.2 GB. There was no OOM and no swap.
+- The first freeze came while the sender sat at 0 tx/s (on hold before G1).
+
+**Earlier runs:** the same pauses happened before: overnight on 1–2 Oct, and on 9–10 Oct, including about 28 min during the 10 Oct peak. They showed fewer rejects then because the senders fed a local node.
+
+**Likely contributing factor (unproven):** that day the box was a freshly restored VM. About 85 GB had been copied back, and a background storage sync was re-scanning every file. That probably made the pauses more frequent. After the pauses, the host reclaimed memory (`virtio_balloon` lines).
+
+**Fixes:**
+- Run time-critical senders and miners off the box (F1, F19, F22).
+- If the box is used, the sender detects a clock jump and reconnects every lane right away.
+- Every second, log kernel time next to wall time, the memory-reclaim counters and the open connections.
+- Ask the platform whether VMs get paused during runs and whether there's a no-pause option.
+
+### F28. How the bots work. Agreed (stp, 20:07 CEST)
+
+- On-chain work goes through public TN10 nodes over wRPC. No local node is needed.
+- The box runs the scripts and keeps logs and secrets outside git.
+- GitHub holds the results, plans, recommendations and scrubbed scripts as the shared fallback.
+- Tasks are handed to the bot that owns them (Reminder Bot, kns tn10, Build).
+- stp's PC is only touched with his approval.
+
+### F29. Box disk. Agreed (stp, 20:07 CEST)
+
+The unused 70 GB TN10 node folder was removed with stp's OK. The box disk now has 16 GB used and 110 GB free, which leaves less to restore and sync. There's no node data on the box any more.
 
 ## Open items (all resolved)
 
