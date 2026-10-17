@@ -2,7 +2,7 @@
 
 > **Final report, TN10 run Sat 17 Oct 2026. Build reviews this on Tuesday.**
 
-Testnet-10 only. tKAS has no value. Counts only: no addresses, txids, IPs, seeds or keys. All times UTC unless marked CEST (UTC+2). The details are in [FINAL-RECOMMENDATIONS.md](FINAL-RECOMMENDATIONS.md), the [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and the [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md). The earlier files [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md) are kept as they were.
+Testnet-10 only. tKAS has no value. Counts only: no addresses, txids, IPs, seeds or keys. All times UTC unless marked CEST (UTC+2). The details are in [FINAL-RECOMMENDATIONS.md](FINAL-RECOMMENDATIONS.md), the [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and the [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md). Kaspa Pulse's own count set against our logs is in [PULSE-COMPARISON.md](PULSE-COMPARISON.md). The earlier files [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md) are kept as they were.
 
 Window: logging from 13:30Z, sends from 14:00Z, hard stop 16:30Z. All senders and miners stopped at the hard stop.
 
@@ -142,6 +142,10 @@ The author field is the same account for every commit. The "By" column comes fro
 | [`aff5a60`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/aff5a60) | 2026-10-17 17:56Z (19:56 CEST) | bot | Final recommendations: F21-F26 (count service, self-restarting services, two own nodes, live status page, generated report, scripts repo), agreed by stp (F23 later changed to laptop only) |
 | [`1c5e964`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/1c5e964) | 2026-10-17 17:57Z (19:57 CEST) | bot | F26: scripts kept in a separate private repo (no name or link) |
 | [`ee50e93`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/ee50e93) | 2026-10-17 18:08Z (20:08 CEST) | bot | Final recommendations: F27 box-freeze cause (platform pauses), F28 how the bots work, F29 box disk; Build reviews on Tuesday |
+| [`ae2dc1c`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/ae2dc1c) | 2026-10-17 18:13Z (20:13 CEST) | bot | Final report for the 17 Oct TN10 run (results, F1-F29, all commits); tower out, laptop is the only node machine |
+| [`db06a9d`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/db06a9d) | 2026-10-17 18:14Z (20:14 CEST) | bot | Own node setup is the ASUS UX501V laptop only (stp 20:14 CEST); public TN10 nodes stay the independent fallback |
+
+The commit that adds the Pulse comparison comes after the last one listed.
 
 ## 4. Other material
 
