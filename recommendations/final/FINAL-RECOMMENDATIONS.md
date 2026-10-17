@@ -1,6 +1,8 @@
 # Final recommendations for the next TN10 round (Sun 25 Oct 2026)
 
-> **Status: Build check in. F1–F18 agreed by both. O1–O3 answered by Build. O4 left for stp.** Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
+> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
+
+**Next:** compare with Kaspa Pulse's own counts once they come in, then fine-tune this file before the Fri 23 Oct rehearsal.
 
 Testnet-10 only. tKAS has no value. Counts only. This does not change the frozen 17 Oct plan or GO files. Every item goes into the 25 Oct plan only once Kaspa Pulse (@gokugalax, kaspapulse.com) agrees.
 
@@ -29,7 +31,7 @@ Testnet-10 only. tKAS has no value. Counts only. This does not change the frozen
 - **Decided by stp:** a separate machine, the **ASUS UX501V laptop** (it needs a new 19 V 6.32 A 120 W charger; the tower makes odd noises), runs **only the TN10 public node**. It runs **continuously, 24/7, not just on run days**, so it stays synced and ready.
 - **24/7 settings:** never sleep; nothing happens on lid close; battery charge limit around 60–80 % if the laptop supports it; wired through a **USB-Ethernet adapter** (no RJ45 port); hibernate off.
 - **Hardware:** SSD with at least 100 GB free; 16 GB RAM preferred.
-- Synced and tested at least a day before the run. It sends and monitors only and **never mines** (like n3). Kept private: wRPC on the LAN or behind a tunnel, with no IP, port or tunnel URL in git.
+- Synced and tested at least a day before the run. The node itself never mines. For Run B it serves the miners' block templates over gRPC through a tunnel (**see F19**), so its uptime is part of Run B. Kept private: wRPC on the LAN or behind a tunnel, with no IP, port or tunnel URL in git.
 - **Adopted from Build:** it is an **extra independent path**, not the repair for 17 Oct's lost sends. Those were two different faults: the box VM pauses (bot, F2) and the desk sender going silent (Build, F10). A node machine fixes neither of them. The public nodes stay in the plan.
 
 ### F2. The bot sender doesn't run on the box VM alone. Agreed (both) (was #2)
@@ -52,7 +54,8 @@ There were 3 backends on 17 Oct (muon, vector, and electron/neutrino/boson). Add
 
 **Build: agree.** The mining life that covered 14:00Z had started at 13:53Z, and the 15:15Z and 15:40Z shares were already measured; B0 missed them because they were not in a file the bot read (O1).
 
-- The standard Run B package is the **Node wRPC SDK miner**, since kaspa-miner can't use the public nodes (gRPC closed). Do the short test **a day before**, on the real path (F11). n3 never mines.
+- **Primary Run B mining is now F19:** kaspa-miner.exe over gRPC to our own laptop node through a tunnel (decided by stp).
+- **Fallback:** the **Node wRPC SDK miner on the public nodes**, since kaspa-miner can't use the public nodes (gRPC closed). Keep it packaged and test it **a day before** too, on the real path (F11). n3 never mines.
 - **Adopted from Build:** the bot's "start miners at least 1 hour before B0" is dropped. On 17 Oct the miners were running from 13:53Z and the share was measured (16.72 % / 18.18 %). The real failure was that the share never reached the bot.
 - **Write the minute rows and the hour share to a file during the run** that the bot can read (F14). Count the share on-chain; the bot checks it independently from a node where it can. **Decide B0 by 15:30Z** from that file (for a 15:45Z B0 slot).
 - Leave room after B0 for B1, B2 (up to 25 min) and B3 before the hard stop.
@@ -86,7 +89,7 @@ Only an operator STOP blocks restarts.
 
 - **Adopted from Build:** a process-only supervisor would have called the desk sender healthy through about 59 minutes of silence. The check is progress: if the node answers and the sender writes no second for **3 minutes**, restart it. Don't restart on a short blip. A restart never writes STOP. An empty exit-code file is a finished life.
 - Applies to every lane runner: bot sender, Build desk sender, miners, and any other lane runner.
-- **Bot addition (see Open O3):** the watchdog has to run **outside** whatever session or VM can be paused. A watchdog that is paused along with the sender won't fire.
+- **Bot addition, confirmed by Build's O3 answer:** the watchdog runs **outside** the process it watches, and outside any session or VM that can be paused. A watchdog inside a stuck or paused process won't fire.
 
 ### F11. The node-availability check tests the real path. Agreed (both) (was #11)
 
@@ -134,9 +137,20 @@ Desk sender 200, bot 400, both with 0 fee-too-low rejects on 17 Oct.
 
 A2/A3 were never applied on 17 Oct, so Run A's stop-and-catch-up was not measured. For 25 Oct: the bot writes the FOR-BUILD block to a file Build's session polls, and Build writes an acknowledgement row. A step counts as applied only once it has been acknowledged.
 
-## Open
+### F19. Run B mining back to normal: kaspa-miner over gRPC to our own laptop node through a tunnel. Agreed; decided by stp (17 Oct, 19:46 CEST)
 
-### O1. Hour-share numerator. Answered by Build
+- **Run B miners use kaspa-miner.exe over gRPC** to the 24/7 ASUS UX501V laptop node (F1), reached **through a gRPC tunnel** (the same kind as our bore tunnels).
+- **Fallback:** the wRPC SDK miner on the public nodes (F5).
+- **n3 still never mines.**
+- **Expose only the gRPC port** through the tunnel. Never put tunnel addresses, hosts or ports in git.
+- **Test a day before the run:** first check that the laptop node is synced, then test-mine through the tunnel for 60 s. Pass = all found blocks accepted, 0 rejected. Use the real path: a gRPC template from the laptop node and a solved-block submit through the tunnel (F11).
+- Keep F16 (CPU brake: sender first) and the restart loop with the progress watchdog (F5, F10) for kaspa-miner.
+- **Benefit:** the bot's B0 cross-check can read accepted blocks directly from our own node, using the O1 definition. That mostly removes the O4 problem.
+- **Caveat, honestly:** miners on our own node are less independent of our own stack than the public nodes are. The laptop's uptime, its network link and the tunnel all become part of Run B. If the laptop node or the tunnel drops before or during Run B, switch to the F5 fallback and log the switch. Don't fall back to n3.
+
+## Open items (all resolved)
+
+### O1. Hour-share numerator. Resolved (Build's answer)
 
 5,868 and 6,382 are not the minute-row sums. They are the miner's own accepted counter (`ok`) on a probe taken about every 2 minutes, differenced between probes. A drop in that counter (a new miner life) added nothing for the new life until the next probe.
 
@@ -151,11 +165,11 @@ A2/A3 were never applied on 17 Oct, so Run A's stop-and-catch-up was not measure
 - Denominator: `blockCount` on one public node at the close of minute `T−1`, minus `blockCount` on that same node at the close of minute `T−61`. If either read is missing, the share is not measured.
 - The 17 Oct probe figures stay as history. They are not the 25 Oct gate.
 
-### O2. 60 s test count. Answered by Build
+### O2. 60 s test count. Resolved (Build's answer)
 
 Yes. Build's **12 found / 12 accepted / 0 rejected** is the Windows test with **1 worker for 60 s** (logged 60.014 s, 294,555 H/s) on one public node. The bot's **13 / 13 / 0** is the earlier test on the box, before that package was run on Windows. Both stand, each for its own test.
 
-### O3. Desk-sender silences. Answered by Build
+### O3. Desk-sender silences. Resolved (Build's answer)
 
 Yes, on 17 Oct the desk sender was a process started inside the agent tool session, not a service. No, the logs do not show that session paused or throttled. Through the four long silences the miners, started in the same session, kept accepting blocks (1,956, 1,272, 1,587, and 897 in the closed minutes inside those gaps), and the desk mempool reads kept changing. A paused session would have stopped those too.
 
@@ -163,8 +177,10 @@ The resumes at 15:15:08Z, 15:31:04Z, and 15:40:01Z sit next to other work in tha
 
 Still run the sender as its own OS process, and keep the 3-minute progress watchdog outside that process (F10). A watchdog inside the stuck process will not fire.
 
-### O4. Who measures the share for B0. Left for stp
+### O4. Who measures the share for B0. Resolved: YES, decided by stp (17 Oct, 19:47 CEST)
 
 The bot's proposal stands: Build's live file (F14), using the O1 definition, is the primary source, and the bot cross-checks from a node.
 
-**Build's view, not a decision:** a share in that live file is enough to pass B0 when the bot's cross-check is not ready. Record the missing cross-check. Do not fail B0 for it. On 17 Oct the share was already above 15 % and the skip happened because the bot could not see the file.
+**stp's decision: YES.** Build's live share file (F14, O1 rule) is enough to pass B0 when the bot's cross-check is not ready. Record the missing cross-check in `gates.csv` and the events log, and don't fail the gate for it. With F19 the bot can count the miners' accepted blocks directly from our own laptop node, so the cross-check should normally be available.
+
+**Build's view (matches the decision):** a share in that live file is enough to pass B0 when the bot's cross-check is not ready. Record the missing cross-check. Do not fail B0 for it. On 17 Oct the share was already above 15 % and the skip happened because the bot could not see the file.
