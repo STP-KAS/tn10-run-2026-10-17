@@ -1,6 +1,6 @@
 # Final recommendations from the TN10 run of Sat 17 Oct 2026
 
-> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20 agreed by stp (17 Oct, 19:47 CEST). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
+> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20 agreed by stp (17 Oct, 19:47 CEST). F21–F26 agreed by stp (17 Oct, 19:53 CEST). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
 
 **Next:** Compare with Kaspa Pulse's own counts once received, then fine-tune.
 
@@ -153,6 +153,30 @@ A2/A3 were never applied on 17 Oct, so Run A's stop-and-catch-up was not measure
 - Every bot appends its gate results (G1, B0, A2 and so on) **in UTC** to **one shared gates file** that the others read.
 - Then no numbers have to be relayed between chats at the last minute. That relay is why B0 slipped on 17 Oct: Build's share was measured (16.72 % at 15:15Z, 18.18 % at 15:40Z) but never reached the bot by 15:45Z.
 - It works alongside F14 (Build's live minute file) and F18 (step acknowledgements). Counts and gate results only: no addresses, hosts or ports.
+
+### F21. A small count service on our own node. Agreed (stp, 19:53 CEST)
+
+A small read-only counter on our own node writes accepted transactions and blocks per minute to a CSV. It never sends. That gives the bot, Build and Kaspa Pulse one shared reference to compare their own counts against, alongside each side's own logs rather than replacing them.
+
+### F22. Senders, miners and loggers as self-restarting OS services. Agreed (stp, 19:53 CEST)
+
+Run every sender, miner and logger as an OS service that restarts itself, with the progress watchdog (F10) on a different machine. This builds on F10 and on Build's O3 finding that the desk sender's own loop got stuck.
+
+### F23. Two nodes of our own. Agreed (stp, 19:53 CEST)
+
+Besides the 24/7 laptop node (F1), run a second node somewhere else: the repaired tower or a small VPS. Then the runs depend neither on one machine of ours nor on public nodes that share backends (F4). Same rules as F1: synced and tested before any run, kept private, no IP in git, never n3.
+
+### F24. A simple live status page. Agreed (stp, 19:53 CEST)
+
+A simple page showing tx/s, rejects, mempool and share, read live from the count service (F21), so Kaspa Pulse and anyone interested can follow along. Counts only: no addresses, hosts or ports on the page.
+
+### F25. Post-run report generated from the logs. Agreed (stp, 19:53 CEST)
+
+When the run stops, a script generates the summary, the totals and a few charts from the log files, instead of anyone writing them by hand. The leak scan still runs before anything is pushed.
+
+### F26. The scripts in their own repo. Agreed (stp, 19:53 CEST)
+
+The scripts we used, with config examples, a checklist and the log format, live in their own repo: [STP-KAS/tn10-run-kit](https://github.com/STP-KAS/tn10-run-kit). It stays private until stp has reviewed it, so the link only works for collaborators until then. Shared as-is.
 
 ## Open items (all resolved)
 
