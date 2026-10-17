@@ -1,6 +1,6 @@
 # Final recommendations from the TN10 run of Sat 17 Oct 2026
 
-> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20 agreed by stp (17 Oct, 19:47 CEST). F21–F26 agreed by stp (17 Oct, 19:53 CEST). F27–F29 agreed by stp (17 Oct, 20:07 CEST). Tower removed as an option (stp, 20:11 CEST). Full report: [FINAL-REPORT.md](FINAL-REPORT.md). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
+> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20 agreed by stp (17 Oct, 19:47 CEST). F21–F26 agreed by stp (17 Oct, 19:53 CEST). F27–F29 agreed by stp (17 Oct, 20:07 CEST). Tower removed as an option (stp, 20:11 CEST). Own node = laptop only (stp, 20:14 CEST). Full report: [FINAL-REPORT.md](FINAL-REPORT.md). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
 
 Build reviews this on Tuesday.
 
@@ -26,7 +26,7 @@ Testnet-10 only. tKAS has no value. Counts only. This does not change the frozen
 
 ## Items
 
-### F1. Second machine: ASUS UX501V laptop as our own TN10 public node, running 24/7. Agreed (both); decided by stp (was #1)
+### F1. Our own node: ASUS UX501V laptop as a TN10 public node, running 24/7. Agreed (both); decided by stp (was #1)
 
 **Build: agree.** It is an extra path, not the repair for 17 Oct: the bot lost sends in VM pauses, and the desk sender logged 1,084,080 accepts and 0 rejects with 83 minutes that have no second.
 
@@ -164,9 +164,9 @@ A small read-only counter on our own node writes accepted transactions and block
 
 Run every sender, miner and logger as an OS service that restarts itself, with the progress watchdog (F10) on a different machine. This builds on F10 and on Build's O3 finding that the desk sender's own loop got stuck.
 
-### F23. Two nodes of our own. Agreed (stp, 19:53 CEST)
+### F23. Our own node: the laptop only. Agreed (stp, 19:53 CEST; changed by stp, 20:14 CEST)
 
-Besides the 24/7 laptop node (F1), run a second node somewhere else: another machine or a small VPS. The black desktop tower is broken and out (stp, 20:11 CEST). Then the runs depend neither on one machine of ours nor on public nodes that share backends (F4). Same rules as F1: synced and tested before any run, kept private, no IP in git, never n3.
+Our own node setup is the **ASUS UX501V laptop only** (F1), decided by stp at 20:14 CEST. There's no second node of our own and no other machine or VPS. The black desktop tower is broken and out. The **public TN10 nodes remain the independent fallback** for the senders and the wRPC miner (F5). Spread lanes over them by backend (F4), so the runs don't depend on the laptop alone.
 
 ### F24. A simple live status page. Agreed (stp, 19:53 CEST)
 

@@ -71,7 +71,7 @@ The short form is below. The full text, which is the reference, is in [FINAL-REC
 
 | # | Recommendation | Status |
 |---|---|---|
-| F1 | Second machine: ASUS UX501V laptop as our own TN10 public node, running 24/7 | Agreed (both); decided by stp (was #1) |
+| F1 | Our own node: ASUS UX501V laptop as a TN10 public node, running 24/7 | Agreed (both); decided by stp (was #1) |
 | F2 | The bot sender doesn't run on the box VM alone | Agreed (both) (was #2) |
 | F3 | Keep the node-dead fix: cool-off plus a fresh healthy read | Agreed (both) (was #3) |
 | F4 | Spread lanes by independent backend, not by hostname | Agreed (both) (was #4) |
@@ -93,7 +93,7 @@ The short form is below. The full text, which is the reference, is in [FINAL-REC
 | F20 | One shared run clock and gate file | Agreed (stp, 19:47 CEST) |
 | F21 | A small count service on our own node | Agreed (stp, 19:53 CEST) |
 | F22 | Senders, miners and loggers as self-restarting OS services | Agreed (stp, 19:53 CEST) |
-| F23 | Two nodes of our own | Agreed (stp, 19:53 CEST) |
+| F23 | Our own node: the laptop only | Agreed (stp, 19:53 CEST; changed by stp, 20:14 CEST) |
 | F24 | A simple live status page | Agreed (stp, 19:53 CEST) |
 | F25 | Post-run report generated from the logs | Agreed (stp, 19:53 CEST) |
 | F26 | The scripts in their own repo | Agreed (stp, 19:53 CEST) |
@@ -139,7 +139,7 @@ The author field is the same account for every commit. The "By" column comes fro
 | [`ad21674`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/ad21674) | 2026-10-17 17:48Z (19:48 CEST) | bot | Final recommendations v2 (base): F19 kaspa-miner over gRPC to own laptop node via tunnel; O1-O3 resolved, O4 yes (stp); fine-tune after Kaspa Pulse's counts |
 | [`a19c87d`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/a19c87d) | 2026-10-17 17:49Z (19:49 CEST) | bot | Final recommendations: F20 item later removed, F21 shared run clock and gate file (agreed by stp) |
 | [`f1079fa`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/f1079fa) | 2026-10-17 17:50Z (19:50 CEST) | bot | Recommendations: remove that item and future-run dates; shared gate file renumbered F20 |
-| [`aff5a60`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/aff5a60) | 2026-10-17 17:56Z (19:56 CEST) | bot | Final recommendations: F21-F26 (count service, self-restarting services, two own nodes, live status page, generated report, scripts repo), agreed by stp |
+| [`aff5a60`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/aff5a60) | 2026-10-17 17:56Z (19:56 CEST) | bot | Final recommendations: F21-F26 (count service, self-restarting services, two own nodes, live status page, generated report, scripts repo), agreed by stp (F23 later changed to laptop only) |
 | [`1c5e964`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/1c5e964) | 2026-10-17 17:57Z (19:57 CEST) | bot | F26: scripts kept in a separate private repo (no name or link) |
 | [`ee50e93`](https://github.com/STP-KAS/tn10-run-2026-10-17/commit/ee50e93) | 2026-10-17 18:08Z (20:08 CEST) | bot | Final recommendations: F27 box-freeze cause (platform pauses), F28 how the bots work, F29 box disk; Build reviews on Tuesday |
 
