@@ -61,13 +61,19 @@ Rate: the target was 300 tx/s, so 2,700,000 in 150 min. The bot got 2,251,387 ac
 
 - **B0 = skip**, called by TN10 ops at **16:00:00Z** (B0 was due 15:45Z). Two reasons: the share could not be verified from the bot side, since no blocks could be tied to Build and no fresh share report arrived; and too little time was left before the 16:30Z hard stop for B1, B2 (up to 25 min) and B3.
 - For context only, not a measured share: the network hashrate was about 17.6 MH/s (10,000-block window) at 15:59Z. Build's last reported rate of 3.7 to 3.9 MH/s would be about 21 to 22 % if it still held.
-- No B2 pause happened. The separate private plan is not described here.
+- No B2 pause happened.
 
 ## Build's miners (as Build reported; not measured by the bot)
 
 - `kaspa-miner` could not use the public nodes: **gRPC is closed on all of them**. They serve wRPC only, and kaspa-miner speaks only gRPC.
 - A small Node.js miner using the Kaspa SDK over wRPC (getBlockTemplate + submitBlock) worked. In a 60 s test, 13 blocks were found, 13 accepted and 0 rejected, and they appeared as chain blocks on the other public nodes. An unsolved block was refused as `blockInvalid`, so the nodes check proof of work normally.
 - Build ran about 16 to 20 workers on the public nodes (the CPU brake took him to 16 so his 300 tx/s sender came first), at about 3.7 to 3.9 MH/s with 0 rejected blocks, as he reported. One set of workers exited once with no error and was restarted within seconds. n3 never mined.
+
+## KNS lanes (high level only; full results kept privately)
+
+- The KNS lanes ran from 14:15:20Z to 15:03:34Z. They stopped early when the 15:03–15:07Z box freeze (stall 3 below) set off their stall kill. Their shutdown handler then wrote a STOP file, and that blocked the auto-restart (a bug on the KNS side).
+- 797 of 801 attempts were confirmed. There were 11 rejects: 6 RPC timeouts on their side (those names landed anyway) and 5 orphans. There were 0 fee, mass or double-spend rejects.
+- The full KNS results are kept privately. Other details are in a separate private plan.
 
 ## Node-dead recovery bug and fix
 
@@ -77,7 +83,7 @@ Rate: the target was 300 tx/s, so 2,700,000 in 150 min. The bot got 2,251,387 ac
 
 ## Box freezes: box stalls, not network drops
 
-All the gaps below are **stalls of the bot's own computer (the box VM)**. They are not network or public-node drops. During each gap the box wrote no rows at all. When it resumed, the sender's open connections were stale, which caused the rpc_closed / rpc_timeout and orphan rejects. The public nodes kept running throughout. Times come from the `sec.csv` row gaps, and dmesg confirms the resume.
+There were **six stalls in total**: one before the run and five during sending. kns tn10 independently confirmed the pre-run stall at about 13:37–13:45Z. All the gaps below are **stalls of the bot's own computer (the box VM)**. They are not network or public-node drops. During each gap the box wrote no rows at all. When it resumed, the sender's open connections were stale, which caused the rpc_closed / rpc_timeout and orphan rejects. The public nodes kept running throughout. Times come from the `sec.csv` row gaps, and dmesg confirms the resume.
 
 | # | Stall (UTC) | Sending lost | Rejects on resume | Recovery |
 |---|---|---|---|---|

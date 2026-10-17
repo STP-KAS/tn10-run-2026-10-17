@@ -2,12 +2,15 @@
 
 From the Sat 17 Oct 2026 run. Testnet-10 only. The evidence is in [logs/bot/2026-10-17/SUMMARY.md](../logs/bot/2026-10-17/SUMMARY.md). None of this changes the frozen 17 Oct plan or GO files. Each item goes into the next plan only once Kaspa Pulse (@gokugalax, kaspapulse.com) agrees.
 
-## 1. stp's decision: a second desktop with its own TN10 public node, "share the load"
+## 1. stp's decision: a second machine (ASUS UX501V laptop) with its own TN10 public node, "share the load"
 
-**Decided by stp on 17 Oct 2026, 18:35 CEST.** stp will start a second desktop running its own TN10 public node to share the load, and keep it running from now on.
+**Decided by stp on 17 Oct 2026, 18:35 CEST.** stp will start a second machine running its own TN10 public node to share the load, and keep it running from now on.
+
+**Machine (stp's choice, 17 Oct): the ASUS UX501V laptop**, picked over the tower because the tower makes odd noises. It only needs a new charger (19 V, 6.32 A, 120 W).
 
 Conditions:
-- **Always-on machine:** wired network, SSD, 16 GB+ RAM, about 100 GB free disk.
+- **ASUS UX501V specifics:** SSD with at least 100 GB free; 16 GB RAM preferred; a **USB-Ethernet adapter** for the wired link, since the laptop has no RJ45 port. Keep it on the charger and set it to never sleep, never sleep with the lid closed, and never hibernate.
+- **Always-on:** wired network, SSD, 16 GB+ RAM (preferred), about 100 GB free disk.
 - **Synced and tested at least a day before the run.** Several of the earlier problems came from nodes that had not finished syncing.
 - **Sends and monitors only; does not mine** (the same rule as n3).
 - **Kept private:** its wRPC stays on the LAN or behind a tunnel. No IP, port or tunnel URL goes into git.
@@ -48,3 +51,11 @@ Today's pre-check and logging routine was cut off before it finished (the sender
 - Send the per-minute CSV (`logs/bot/2026-10-17/pulse-minute.csv`).
 - Give the freeze gaps a clear label: 14:21:31–14:26:10, 14:48:07–14:58:08, 15:03:34–15:07:14, 15:12:35–15:15:53 and 16:22:09–16:23:30 UTC are **bot box stalls, not network drops**. No rows means not measured.
 - Mention that electron, neutrino and boson look like one backend, so counts per node are not independent.
+
+## 9. A stall kill must not write STOP
+
+Only an operator STOP may block restarts. Today the KNS lanes' shutdown handler wrote STOP after the 15:03Z box freeze set off its stall kill, and that blocked their own auto-restart for the rest of the run.
+
+## 10. Every lane runner needs a supervisor
+
+- **Every lane runner needs a supervisor** (bot sender, KNS lanes, Build's senders and miners, and any other lane runner) that restarts it after a box freeze or an unexpected exit, and logs the exit code. The supervisor checks for an operator STOP before each restart and honours the hard stop.
