@@ -1,6 +1,6 @@
 # Final recommendations for the next TN10 round (Sun 25 Oct 2026)
 
-> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
+> **Status: Final v2 (base): TN10 ops + Build checked, stp approved; to be fine-tuned after Kaspa Pulse's logs and answer.** F1–F18 agreed by both (Build check in 3aedd30). F19 decided by stp (17 Oct, 19:46 CEST). F20–F21 agreed by stp (17 Oct, 19:47 CEST). O1–O3 resolved with Build's answers. O4 decided by stp (17 Oct, 19:47 CEST). Merged from the bot's [RECOMMENDATIONS.md](../RECOMMENDATIONS.md) and Build's answer [RECOMMENDATIONS-BUILD.md](../RECOMMENDATIONS-BUILD.md). Both files stay as they are. Evidence: [bot SUMMARY](../../logs/bot/2026-10-17/SUMMARY.md) and [Build SUMMARY](../../logs/build/2026-10-17/SUMMARY.md) with `desk-sender.csv` and `miners.csv`.
 
 **Next:** compare with Kaspa Pulse's own counts once they come in, then fine-tune this file before the Fri 23 Oct rehearsal.
 
@@ -147,6 +147,18 @@ A2/A3 were never applied on 17 Oct, so Run A's stop-and-catch-up was not measure
 - Keep F16 (CPU brake: sender first) and the restart loop with the progress watchdog (F5, F10) for kaspa-miner.
 - **Benefit:** the bot's B0 cross-check can read accepted blocks directly from our own node, using the O1 definition. That mostly removes the O4 problem.
 - **Caveat, honestly:** miners on our own node are less independent of our own stack than the public nodes are. The laptop's uptime, its network link and the tunnel all become part of Run B. If the laptop node or the tunnel drops before or during Run B, switch to the F5 fallback and log the switch. Don't fall back to n3.
+
+### F20. Dress rehearsal on Fri 23 Oct. Agreed (stp, 19:47 CEST)
+
+- About **30 minutes on Fri 23 Oct** with everything running together: all senders, the miners via the gRPC tunnel (F19), the loggers, the watchdogs (F10) and the real hard-stop timers (F12).
+- **Sunday's go/no-go depends on the rehearsal passing.**
+- Why: the problems from 17 Oct would all have shown up there instead of on run day: the gRPC issue (kaspa-miner couldn't reach the public nodes), the stuck desk sender (O3), and the share hand-off that made B0 slip (F14, F21).
+
+### F21. One shared run clock and gate file. Agreed (stp, 19:47 CEST)
+
+- Every bot appends its gate results (G1, B0, A2 and so on) **in UTC** to **one shared gates file** that the others read.
+- Then no numbers have to be relayed between chats at the last minute. That relay is why B0 slipped on 17 Oct: Build's share was measured (16.72 % at 15:15Z, 18.18 % at 15:40Z) but never reached the bot by 15:45Z.
+- It works alongside F14 (Build's live minute file) and F18 (step acknowledgements). Counts and gate results only: no addresses, hosts or ports.
 
 ## Open items (all resolved)
 
