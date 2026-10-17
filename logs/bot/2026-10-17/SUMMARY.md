@@ -55,7 +55,7 @@ Rate: the target was 300 tx/s, so 2,700,000 in 150 min. The bot got 2,251,387 ac
 - The bot stayed in A1 at 300 tx/s until the hard stop. Outside the freeze gaps it held about 300 tx/s every minute, with 0 rejects in most minutes.
 - No rejects for fee or a full mempool. The peak mempool was 1,979.
 - Fee reads during the run (`fee-reads.csv`, priority estimate): muon, electron, neutrino and boson stayed at a median of 100, peaking at 432 (muon) and 231 (the other three). Vector read higher throughout: median about 159, peaking at about 350.
-- **A2/A3 desk-node steps were Build's and stp's.** The bot has no data on them. The bot logs contain no A2, A3 or A4 rows or events, so what happened there is for Build's own summary.
+- **A2/A3 desk-node steps were Build's and stp's.** The bot has no data on them. The bot logs contain no A2, A3 or A4 rows or events, Build's logs now show that no A2, A3 or A4 step was applied, so Run A's stop-and-catch-up was not measured ([logs/build/2026-10-17/SUMMARY.md](../../build/2026-10-17/SUMMARY.md)).
 
 ## Run B
 
@@ -68,6 +68,7 @@ Rate: the target was 300 tx/s, so 2,700,000 in 150 min. The bot got 2,251,387 ac
 - `kaspa-miner` could not use the public nodes: **gRPC is closed on all of them**. They serve wRPC only, and kaspa-miner speaks only gRPC.
 - A small Node.js miner using the Kaspa SDK over wRPC (getBlockTemplate + submitBlock) worked. In a 60 s test, 13 blocks were found, 13 accepted and 0 rejected, and they appeared as chain blocks on the other public nodes. An unsolved block was refused as `blockInvalid`, so the nodes check proof of work normally.
 - Build ran about 16 to 20 workers on the public nodes (the CPU brake took him to 16 so his 300 tx/s sender came first), at about 3.7 to 3.9 MH/s with 0 rejected blocks, as he reported. One set of workers exited once with no error and was restarted within seconds. n3 never mined.
+- **Update from Build's logs** ([miners.csv](../../build/2026-10-17/miners.csv)): 20 workers at 3.78 to 3.86 MH/s until 14:33:21Z, then 16 workers at about 2.96 to 3.26 MH/s (median 3.25 MH/s) to the hard stop. 16,255 found, 16,254 accepted, 0 rejected. The hour share Build measured was 16.72 % at 15:15Z and 18.18 % at 15:40Z, so B0 would have passed (15 % or more) if that number had reached the bot before 15:45Z.
 
 ## KNS lanes (high level only; full results kept privately)
 
@@ -107,5 +108,5 @@ There were **six stalls in total**: one before the run and five during sending. 
 ## Open items for the after-run
 
 - `chain-count.csv`, `steps.csv`, `confirm.csv` and the `ntp.csv` end row were not produced by the bot today.
-- Build's own summary and his `FOR-TN10-OPS-result-1017.txt` are needed for A2/A3, the desk node and the miner numbers.
+- Build's data now exists: [logs/build/2026-10-17/SUMMARY.md](../../build/2026-10-17/SUMMARY.md), `desk-sender.csv` and `miners.csv` (desk sender 1,084,080 sent and accepted, 0 rejects; miners and share above). Build's `FOR-TN10-OPS-result-1017.txt` was not received.
 - Recommendations for the next round: [../../../recommendations/RECOMMENDATIONS.md](../../../recommendations/RECOMMENDATIONS.md).
