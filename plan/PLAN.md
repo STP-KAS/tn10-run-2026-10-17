@@ -50,7 +50,7 @@ The last successful storm, [tn10-storm-2026-10-11](https://github.com/STP-KAS/tn
 | Logging and fee reads start | Sat 17 Oct 13:30 | 15:30 |
 | **START** (Run A, modest load on), only if gate G1 is reached. Two hours after the pre-test. | **14:00** | **16:00** |
 | Kaspa Pulse's counting window | **13:30-16:30** | 15:30-18:30 |
-| **Hard stop** (safety cap): senders off; the one desk miner stays off if Run B was skipped (on only if Run B ran), wherever the run is | **16:30** | **18:30** |
+| **Hard stop** (safety cap): senders off; public-node miners off if Run B was skipped, otherwise as B3 left them | **16:30** | **18:30** |
 
 Handing over GO-BUILD or GO-BOT means get ready for the pre-test. It does not start the run. The shared rule book is [go/README.md](../go/README.md). Logging columns are [go/LOGGING.md](../go/LOGGING.md). Build reads [go/build/GO-BUILD.md](../go/build/GO-BUILD.md). The bot first reviews [go/bot/REVIEW-GO.md](../go/bot/REVIEW-GO.md), which is not a GO. After stp accepts that review, the bot writes go/bot/GO-BOT.md from [go/bot/PROMPT-GO-BOT.md](../go/bot/PROMPT-GO-BOT.md). The sheet with the clocks is [plan/TN10-17-Oct-2026.pdf](TN10-17-Oct-2026.pdf).
 
@@ -70,10 +70,10 @@ Each row: the step only starts when the row above it has reached its target.
 | A2 | Stop n3 (non-mining, `node-stop`) | n3 is **≥9,000 blocks behind** the network (about 15 min off at 10 blocks/s) | Keep n3 off | Off 45 min without the gap: restart anyway and log `gate-fail` (no resync test) |
 | A3 | Restart n3, same flags (`node-restart`) | n3 reports synced (`node-synced`, exact second, catch-up time logged); **IBD yes/no logged** from n3's own log and RPC (IBD start/end lines, sync state) | Hold, keep logging | Not synced after 45 min: Run A stops, `gate-fail`; n3 frozen (DAA still > 3 min and sink lag > 3 min): restart once, marked |
 | A4 | Watch fees after resync (n3 stays non-mining) | n3 **back within 2x of the median** for ≥10 minutes in a row, **and** off the fee floor whenever the median is on the floor (floor-drift rule below), **and** ≥10 minutes logged after synced | Hold, keep reading every minute | 60 min after synced still drifting: record "did not return within 60 min" (itself a result), Run A ends |
-| B0 | Run B gate | Our hashrate share over the last hour (our blocks / all blocks) **≥15%**; n3 synced (still non-mining); block rate normal (about 10/s) for ≥10 minutes | Share under 15%: **skip Run B** (`deviation`), do not add miners. Block rate not normal: hold | Not reached by 15:45 UTC (17:45 CEST): skip Run B, logged |
-| B1 | Baseline, the one desk miner on | ≥10 complete minutes, block rate and tx per block steady | Hold | Hard stop |
-| B2 | Build's miner off (`miner-off`; the bot side has no miner since 16 Oct) | Block rate has **fallen and held at a new level for ≥10 minutes**, logged per 10 s, plus tx per block, mempool and fee estimates | Hold | Off 25 min max: miners back on anyway (safety), logged; block rate under 5/s for 2 min: miners back on early, logged |
-| B3 | Build's miner on (`miner-on`) | Block rate back **within 5% of the B1 baseline** for ≥10 minutes; time to recover logged | Hold, keep logging | Hard stop. Miner not restarted within 2 min: the bot asks Build to restart it; never a second miner |
+| B0 | Run B gate | Our hashrate share over the last hour (blocks from the 15 public-node miners / all blocks) **≥15%**; n3 synced and not mining; block rate normal (about 10/s) for ≥10 minutes | Share under 15%: **skip Run B**, logged. Do not point a miner at n3. | Not reached by 15:45 UTC (17:45 CEST): skip Run B. Miners stop at 16:30 UTC. |
+| B1 | Baseline, the 15 public-node miners on | ≥10 complete minutes, block rate and tx per block steady | Hold | Hard stop |
+| B2 | All 15 off (`miner-off`; the bot has no miner) | Block rate has **fallen and held at a new level for ≥10 minutes**, logged per 10 s, plus tx per block, mempool and fee estimates | Hold | Off 25 min max: miners back on anyway (safety), logged; block rate under 5/s for 2 min: miners back on early, logged |
+| B3 | All 15 back on (`miner-on`) | Block rate back **within 5% of the B1 baseline** for ≥10 minutes; time to recover logged | Hold, keep logging | Hard stop |
 | END | Senders off; desk miner off if Run B was skipped | All targets above reached, skipped or stopped and logged | n/a | Hard stop 16:30 UTC |
 
 Run B never starts on a clock: only when Run A has reached A4 (or was stopped and logged) and B0 is reached.
@@ -103,7 +103,7 @@ Kaspa Pulse (@gokugalax, kaspapulse.com) tests KaChat and KNS by hand during the
 |---|---|
 | **Bot** (TN10 ops) | No node, no miner (16 Oct). Modest senders and fee reads to the five public nodes, calls the n3 stop/restart in A (n3 is Build's desk node; stp stops and restarts it on his desk), all gate calls. |
 | **Bot** (tn ops2) | All logging, live `SUMMARY.md` every 15 min (with the current step and target), chain count, write-up. |
-| **Build** | Its one desk node, which is n3 and is the node resynced in Run A (stopped and restarted by stp), + one miner (pays Build wallet, address kept out of git): **miner off through all of Run A**, on only if Run B runs (B1 on, B2 off, B3 on, on the bot's gate call; our only miner); modest senders to its own node only (held during A2); its own fee-read CSV; **chain count and reads for our side** (partial while the node is down). |
+| **Build** | Its one desk node, which is n3 and is the node resynced in Run A (stopped and restarted by stp). **n3 never mines.** Fifteen CPU miners on one public node (pays Build wallet, address kept out of git): B1 on, B2 all off, B3 all on. Modest senders to its own node only (held during A2). Chain count and reads for our side (partial while the node is down). |
 | **Kaspa Pulse (@gokugalax, kaspapulse.com)** | Counts 13:30-16:30 UTC (15:30-18:30 CEST) on both his nodes: accepted tx and blocks per minute, by block time; fee estimate every minute. Results to stp first. Not pinged by the bots. KaChat and KNS app checks by hand (baseline before START, each step change, about every 10 min under load); results compared to our counts, nothing published until they match and are confirmed. |
 | **stp** | Fri announcement, message to Pulse, sends GO files (lock), the only halt, OK before anything goes public. |
 
@@ -160,9 +160,9 @@ The message sent earlier used the old fixed time slots. If stp sends an update, 
 
 One kaspad on this desk. A second node on this machine stays retired. Pulse's count for 13:30–16:30 UTC is the record. Bot and Build send.
 
-- The desk node is n3 and never mines. Its one miner is off through all of Run A, including the stop and the catch-up. The other miners on this PC stay off for the window. 16 Oct (stp, later decision): n3 never mines. This replaces the earlier 16 Oct one-miner-through-Run-A line. The desk node is Build's one kaspad and is n3; Build's desk node is only a partial monitor during A2/A3 (it is stopped and resyncing), so the five public nodes carry the continuous fee and mempool reads.
-- Run B (only if B0 passes) turns that one miner on for B1, off for B2, on for B3. Water and KNS pause for all of B2 (Pulse, 16 Oct).
-> **Run B likely skipped.** With n3 not mining in Run A, our last-hour share at B0 will be near 0% and almost surely under 15%. Expect B0 = `skip` (logged in gates.csv), unless the miner is turned on right after Run A and the share passes before 15:45 UTC.
+- The desk node is n3 and never mines. No miner points at it. 16 Oct (stp): n3 never mines. 17 Oct (stp): Run B's 15 CPU miners are on one public node, never on n3.
+- Run B (only if B0 passes) keeps those 15 on for B1, turns all 15 off for B2, and back on for B3. Water and KNS pause for all of B2 (Pulse, 16 Oct). If B0 fails at 15:45 UTC, the miners stop at 16:30 UTC.
+> **17 Oct, stp.** Run B is to run. Share comes from the 15 public-node miners. n3 never mines. If no public node accepts miner connections, the miners stay off and stp is told. Do not point them at n3.
 
 > **Not Saturday.** The congestion ramp (up to about 8,000 tx/s, soft freeze at 80,000 mempool, cut at 90,000, below the 100,000 panic) is a future run, not Saturday. Saturday keeps the modest load and keeps the 80k soft freeze / 90k cut only as safety margins.
 

@@ -2,7 +2,7 @@
 
 # After the hard stop
 
-Hard stop is Sat 17 Oct 2026, 16:30 UTC (18:30 CEST). Senders off. The one desk miner stays off if Run B was skipped (on only if Run B ran), as in GO-BUILD. The desk node stays up. Do not wipe its data.
+Hard stop is Sat 17 Oct 2026, 16:30 UTC (18:30 CEST). Senders off. The public-node miners stay off if Run B was skipped, as in GO-BUILD. n3 never mines. The desk node stays up. Do not wipe its data.
 
 ## Within the next hour, before pruning
 

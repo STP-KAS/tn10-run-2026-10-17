@@ -24,7 +24,7 @@ Copied from the [11 Oct logging spec](https://github.com/STP-KAS/tn10-storm-2026
 | `fee-reads.csv` | every minute, per node | bot: five public nodes. Build: the desk node | The Run A question |
 | `public-nodes.csv` | every minute, per public node | both, for nodes they submitted to | Who took, refused, or failed |
 | `rejects.csv` | every second with a reject | both | Why a submit failed |
-| `miner.csv` | every 10 s | both. Bot stays `off`. | The one miner |
+| `miner.csv` | every 10 s | both. Bot stays `off`. | The 15 public-node miners. n3 has none. |
 | `host.csv` | every 10 s | both | Is the machine the limit? |
 | `node.csv` | every 10 s | Build only | The desk node. The bot has no node file. |
 | `events.csv` | each event | both | What happened, in order |
@@ -95,7 +95,7 @@ utc,side,step,reason,count
 utc,side,miner_state,threads,hashrate_hs,blocks_found,blocks_accepted,blocks_rejected
 ```
 
-Bot: `miner_state` `off`, `threads` 0, for the whole run. Build: `off` through Run A; `on` in B1, `off` in B2, `on` from B3 (only if B0 passes); `on` at the hard stop only if Run A has ended.
+Bot: `miner_state` `off`, `threads` 0, for the whole run. Build: 15 miners on a public node, `off` for all of B2, back `on` in B3 if B0 passes. n3 has no miner. If B0 fails, miners are `off` at 16:30 UTC.
 
 ### host.csv
 
@@ -187,7 +187,7 @@ The bot's live summary, every 15 minutes from 13:30 UTC: current step and its ta
 - **sent**: the sender called submit. **submit_ok**: the node took it. A failed submit is a reject.
 - **node_accepted**: this side's own transactions seen accepted on the node it reads.
 - **network_unique_accepted**: all accepted transactions in that minute, each id once. The headline. Never summed across sides.
-- **our_mined_blocks**: blocks the one desk miner found. The bot's column stays empty.
+- **our_mined_blocks**: blocks the public-node miners found. The bot's column stays empty. n3 finds none.
 
 ## How to read it
 

@@ -24,11 +24,11 @@ Brussels is CEST, UTC+2. Clocks in git stay in UTC. One clock for both sides.
 ## What Saturday measures
 
 1. **Run A.** After the desk node falls about 9,000 blocks behind and catches up, does its fee estimate drift, by how much, and for how long?
-2. **Run B.** Only if our hashrate share over the last hour is at least 15%. When the one miner stops, how far do block rate and throughput fall, and how fast do they come back?
+2. **Run B.** Only if our hashrate share over the last hour is at least 15%. When the 15 public-node miners stop, how far do block rate and throughput fall, and how fast do they come back? n3 never mines.
 
 Load: bot about **300 tx/s**, Build about **300 tx/s** (about **600 tx/s** total, as in Pulse's DM; stp decision 16 Oct), plus TN10 base load (about 56 tx/s). Fees fixed: bot **400** sompi/gram, Build **200**. No climbs.
 
-> **Run B likely skipped.** With n3 not mining in Run A, our last-hour share at B0 will be near 0% and almost surely under 15%. Expect B0 = `skip` (logged in gates.csv), unless the miner is turned on right after Run A and the share passes before 15:45 UTC.
+> **17 Oct, stp.** Run B is to run. Fifteen CPU miners, one thread each, on one public node. **n3 never mines.** No miner points at the desk node. B1 those 15 stay on, B2 all 15 off (25 min max), B3 all 15 back on until within 5% of the B1 baseline. If B0 is still under 15% at 15:45 UTC, stop the miners at 16:30 UTC. Senders come first. If no public node accepts miner connections, stop and tell stp. Do not point them at n3.
 
 > **B2 pause (Pulse, 16 Oct).** If Run B runs, the 1984 water test and the KNS lanes pause for all of B2 (from `miner-off` until the bot calls B3), so they do not blur the miner drop. The bot signals the pause and the resume.
 
@@ -56,7 +56,7 @@ Same principle as the 11 Oct storm: one target, one window. **Keep going, but fi
 | G1 still open: Run A is called off, Run B's gate is checked | 16:30 | 14:30 |
 | Run B skipped if its gate is still open | 17:45 | 15:45 |
 | Pulse's count | 15:30–18:30 | 13:30–16:30 |
-| **Hard stop.** Senders off. The one miner may be on (only after Run A has ended). | **18:30** | **16:30** |
+| **Hard stop.** Senders off. Public-node miners off if Run B was skipped. | **18:30** | **16:30** |
 | Chain count, before pruning | right after 18:30 | right after 16:30 |
 
 A step moves when its target is reached. A clock never advances a step. A safety cap can only hold, skip, or stop.
@@ -68,7 +68,7 @@ If G1 is not met at 14:00 UTC, START waits. If it is still not met at 14:30 UTC,
 | Side | Who | Sends to | Node | Miner |
 |---|---|---|---|---|
 | Bot | TN10 ops sends. tn ops2 logs, counts, writes the live summary. | The five public TN10 nodes only | None. The box node stays stopped. | None |
-| Build | Grok Build on stp's desk | Its desk node. About a quarter may move to the five public nodes only while that node is up and cannot hold the rate. | One private pruned kaspad, version 2.1.0, UTXO index on. This same node is the resync node. | Exactly one, OFF for all of Run A (this node is n3 and never mines). On only for Run B if B0 passes. |
+| Build | Grok Build on stp's desk | Its desk node. About a quarter may move to the five public nodes only while that node is up and cannot hold the rate. | One private pruned kaspad, version 2.1.0, UTXO index on. This same node is the resync node. n3 never mines. | Fifteen CPU miners on one public node, never on n3. B2 turns all 15 off. |
 | Pulse | Kaspa Pulse (@gokugalax, kaspapulse.com) | Does not send for us. KaChat and KNS app checks by hand (baseline before START, each step change, about every 10 min under load). | His own nodes | His own concern |
 | stp | Gives the GO and the stop (the only halt). No app-check task. | — | Says when the desk node stops and starts in Run A | — |
 
@@ -86,8 +86,8 @@ Never submit to the other side's path. Chained transactions stay on one route.
 - **Node-dead, desk node (Build).** Stop submitting to it on 5 seconds of RPC failure, not synced, sink lag over 60 seconds on a fresh read, or virtual DAA still for 30 seconds. Resume when a fresh read is healthy.
 - **Planned stop (Run A, step A2).** The desk node is stopped on purpose until it is about 9,000 blocks behind. Build does not submit to it, and does not move that load onto the public nodes to fill the gap. The bot keeps 300 tx/s on the public nodes. Build's `sent` in those seconds is 0 because the senders were held. That 0 is measured. Log `node-stop`.
 - **Relief.** While the desk node is up and cannot hold 300 tx/s, about a quarter of Build's senders move to the five public nodes, then come back after 2 minutes of good health. Log `node-fallback` and `node-back`. Chains stay on one route.
-- **Gates.** The bot calls them. The next step starts only on `gate-pass`. Hold is `gate-hold`. A safety cap that ends a step is `gate-fail` or `skip`, with the reason. stp stops and restarts the desk node. Build turns the one miner off and on when the bot calls Run B.
-- **One miner.** It is OFF from the pre-test through all of Run A, including the resync: n3 never mines (a mining node clears its own stale mempool and hides the #1147 effect). The other miners on the desk PC stay off. Run B may turn it on for B1, off for B2, on for B3. Never a second miner. At the hard stop it may be on.
+- **Gates.** The bot calls them. The next step starts only on `gate-pass`. Hold is `gate-hold`. A safety cap that ends a step is `gate-fail` or `skip`, with the reason. stp stops and restarts the desk node. Build turns the 15 public-node miners off and on when the bot calls Run B. n3 never mines.
+- **Miners.** n3 never mines. No miner points at the desk node. Run B uses 15 CPU miners on one public node. B2 turns all 15 off. B3 turns them back on. If B0 fails at 15:45 UTC, they stop at 16:30 UTC.
 - 16 Oct (stp, later decision): n3 never mines. This replaces the earlier 16 Oct one-miner-through-Run-A line. The desk node is Build's one kaspad and is n3; Build's desk node is only a partial monitor during A2/A3 (it is stopped and resyncing), so the five public nodes carry the continuous fee and mempool reads.
 - **Disk.** Build keeps at least 30 GB free, and warns at 20 GB. The desk node stops below 10 GB free. A pruning burst can be up to 16 GB in 30 minutes.
 - **Senders.** At most 8 bot senders, one scheduler, launches staggered, at most one relaunch per sender per minute, no launch under 1.5 GB free RAM. Build's sender count stays inside what the desk node held on the 16 Oct pre-check.

@@ -45,6 +45,6 @@
 | Hard stop (safety cap) | 16:30 | 18:30 |
 
 - **Run A, fees after a resync (#1147):** baseline → n3 off until ≥9,000 blocks behind → resync, IBD yes/no logged → watch until back within 2x for 10 min (floor-drift rule, mempool count logged).
-- **Run B, a large miner drops out:** only if our hashrate share is ≥15% → baseline → the one desk miner off until block rate settles → back on until within 5% (likely skipped: n3 never mines in Run A).
+- **Run B, a large miner drops out:** only if our hashrate share is ≥15%. Fifteen CPU miners on one public node. n3 never mines. B2 turns all 15 off, B3 turns them back on. If B0 fails at 15:45 UTC, miners stop at 16:30 UTC.
 - Load about 600 tx/s at fixed fees, no climbs, no quote-based skipping. Bot about 300 tx/s, Build about 300 tx/s.
-- 11 Oct rules kept: node-dead rule, disk guards, freeze restart, count soon after the end, leak-scan, only stp halts. The one desk miner is off through Run A (n3 never mines). The bot has no miner.
+- 11 Oct rules kept: node-dead rule, disk guards, freeze restart, count soon after the end, leak-scan, only stp halts. n3 never mines. Run B miners are on a public node. The bot has no miner.

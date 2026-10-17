@@ -34,7 +34,7 @@ Use the same section shape as the 11 Oct GO and the 10 Oct bot run.
 4. No node, no miner
 5. Fees
 6. Coins
-7. The desk node and the one miner (what you ask stp and Build to do)
+7. The desk node never mines. Run B's 15 miners are on a public node (what you ask stp and Build to do)
 8. Clock
 9. Gates you call
 10. Log everything
@@ -48,8 +48,8 @@ Use the same section shape as the 11 Oct GO and the 10 Oct bot run.
 - About 300 tx/s on the five public nodes. Fee 400 sompi/gram, fixed. No climb, no sit-out, no quote skip.
 - Public-node failure: about 20 errors in a row cools that node for 30 seconds. One dead public node does not stop the side.
 - You call the gates in [REVIEW-GO.md](REVIEW-GO.md). A step moves on `gate-pass` only.
-- Run A: ask stp to stop and restart the one desk node. That node never mines; its miner stays off through Run A. Build does not fill the A2 gap on the public nodes. You keep 300 tx/s.
-- Run B: ask Build to turn that one miner off, then on, only if the share gate passes. Otherwise `skip`. If B runs, pause water and KNS for all of B2.
+- Run A: ask stp to stop and restart the one desk node. n3 never mines. No miner points at it. Build does not fill the A2 gap on the public nodes. You keep 300 tx/s.
+- Run B is to run. Build's 15 CPU miners are on one public node, never on n3. B1 they stay on, B2 all 15 off, B3 all 15 back on. If the share is under 15% at 15:45 UTC, they stop at 16:30 UTC. If B runs, pause water and KNS for all of B2.
 - Write `pulse-minute.csv` every minute: mempool per public node and rejects by reason.
 - FROZEN after Pulse agreement 16 Oct. The congestion ramp is a future run, not Saturday.
 - Clock: pre-test Sat 17 Oct 2026 12:00 UTC / 14:00 CEST. Logging 13:30 / 15:30. Real test 14:00 / 16:00. G1 deadline 14:30 / 16:30. Hard stop 16:30 / 18:30.
