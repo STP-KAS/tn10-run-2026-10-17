@@ -1,0 +1,2 @@
+utc,side,when,offset_ms,source
+2026-10-17T13:18:17Z,bot,start,0,HTTP Date header www.google.com (1 s resolution; no chrony on box)

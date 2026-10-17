@@ -1,0 +1,2 @@
+utc,side,gate,synced,utxoindex,sink_lag_s,public_nodes_up,result
+2026-10-17T13:59:44Z,bot,G1,true,true,0-0.1,5,pass: fee rows each minute (gap 13:38-13:45Z box freeze), 5/5 public nodes answer, sender connected and idle, >=15 baseline fee rows per node; n3 not mining per Build's Run B prompt (not verified by bot)

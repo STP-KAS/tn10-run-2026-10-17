@@ -1,0 +1,11 @@
+utc,side,step,event,detail
+2026-10-17T13:17:59Z,bot,PREP,deviation,vector-10.kaspa.green unreachable at pre-check (wRPC connect timeout and HTTPS timeout); 4 of 5 public nodes up; vector lanes held by node-dead rule
+2026-10-17T13:17:59Z,bot,PREP,fix,control.json hold=true until the bot calls G1 at 14:00 UTC
+2026-10-17T13:30:00Z,bot,G1,sender-start,fee-reads and sender launched; sender in hold (target 0) until G1
+2026-10-17T13:46:54Z,bot,G1,fix,box froze about 13:37:52-13:45:31Z (no log rows); stale wRPC connections afterwards; patched reconnect-on-read-failure in sender and fee reader
+2026-10-17T13:46:54Z,bot,G1,sender-relaunch,sender and fee reads relaunched; sender still in hold
+2026-10-17T13:59:44Z,bot,G1,gate-pass,G1 passed; hold released, step A1, sends start 14:00:00Z at 300 tx/s fee 400
+2026-10-17T14:58Z,bot,A1,incident-stall-recover,"box stall ~14:48-14:58Z; all 5 nodes dead 14:58:14Z then back 14:58:46Z via 30s cool (14:26 patch); 530 rejects on resume (129 orphan, 401 rpc_closed); no restart; rate restored ~300 tx/s"
+2026-10-17T15:08Z,bot,A1,incident-stall-recover,"box stall ~15:03:34-15:07:14Z (VM fork/pause per dmesg); all 5 nodes dead 15:07:19Z then back 15:07:51Z via 30s cool; 530 rejects on resume (108 orphan, 21 rpc_timeout, 401 rpc_closed); no restart; rate restored ~300 tx/s"
+2026-10-17T15:17Z,bot,A1,incident-stall-recover,"box stall ~15:12:35-15:15:53Z (VM fork/pause per dmesg, 3rd today); all 5 nodes dead 15:15:58Z then back 15:16:32Z via 30s cool; 433 rejects in 15:15Z (32 rpc_timeout, 401 rpc_closed) + 97 orphan 15:16Z; no restart; rate restored ~300 tx/s"
+2026-10-17T15:59Z,bot,A1,B0-unverified,"B0 share not verifiable from bot side (no attributable blocks, no fresh Build report); network hashrate est 17.6 MH/s (10k-block window) at 15:59Z; Build last reported 3.7-3.9 MH/s ~14:05Z (~21-22% if still current, estimate only); no B2"

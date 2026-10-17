@@ -1,0 +1,112 @@
+2026-10-17T15:18:21Z sok=17998 rej=0 ram_avail_mb=12582 sender=alive fee=alive csv=2026-10-17T15:17Z,bot,A1,300,1380,20,25,25,25,1380,5,17998,0,0,0,0,0,0,0,0,0
+2026-10-17T15:19:16Z sok=18000 rej=0 ram_avail_mb=13006 sender=alive fee=alive csv=2026-10-17T15:18Z,bot,A1,300,1472,180,168,168,168,1472,5,18000,0,0,0,0,0,0,0,0,0
+2026-10-17T15:19:29Z sok=18000 rej=0 ram_avail_mb=13000 sender=alive fee=alive
+2026-10-17T15:20:24Z sok=17996 rej=0 ram_avail_mb=13021 sender=alive fee=alive
+2026-10-17T15:21:19Z sok=18004 rej=0 ram_avail_mb=12931 sender=alive fee=alive
+2026-10-17T15:22:14Z sok=18003 rej=0 ram_avail_mb=12733 sender=alive fee=alive
+2026-10-17T15:23:09Z sok=17999 rej=0 ram_avail_mb=12987 sender=alive fee=alive
+2026-10-17T15:24:04Z sok=18000 rej=0 ram_avail_mb=12974 sender=alive fee=alive
+2026-10-17T15:24:59Z sok=18000 rej=0 ram_avail_mb=12984 sender=alive fee=alive
+2026-10-17T15:25:54Z sok=18001 rej=0 ram_avail_mb=12993 sender=alive fee=alive
+2026-10-17T15:26:49Z sok=17997 rej=0 ram_avail_mb=12776 sender=alive fee=alive
+2026-10-17T15:27:44Z sok=18001 rej=0 ram_avail_mb=12980 sender=alive fee=alive
+2026-10-17T15:28:39Z sok=18003 rej=0 ram_avail_mb=12967 sender=alive fee=alive
+2026-10-17T15:29:34Z sok=17994 rej=0 ram_avail_mb=12508 sender=alive fee=alive
+2026-10-17T15:30:29Z sok=18002 rej=0 ram_avail_mb=12549 sender=alive fee=alive
+2026-10-17T15:31:24Z sok=18002 rej=0 ram_avail_mb=12781 sender=alive fee=alive
+2026-10-17T15:32:19Z sok=18000 rej=0 ram_avail_mb=12971 sender=alive fee=alive
+2026-10-17T15:33:14Z sok=17997 rej=0 ram_avail_mb=12944 sender=alive fee=alive
+2026-10-17T15:34:09Z sok=18000 rej=0 ram_avail_mb=12454 sender=alive fee=alive
+2026-10-17T15:35:04Z sok=18002 rej=0 ram_avail_mb=12927 sender=alive fee=alive
+2026-10-17T15:35:59Z sok=18002 rej=0 ram_avail_mb=12913 sender=alive fee=alive
+2026-10-17T15:36:55Z sok=17997 rej=4 ram_avail_mb=12932 sender=alive fee=alive
+2026-10-17T15:37:50Z sok=18000 rej=0 ram_avail_mb=12975 sender=alive fee=alive
+2026-10-17T15:38:45Z sok=17999 rej=0 ram_avail_mb=12692 sender=alive fee=alive
+2026-10-17T15:39:40Z sok=18004 rej=0 ram_avail_mb=12968 sender=alive fee=alive
+2026-10-17T15:40:35Z sok=17997 rej=0 ram_avail_mb=12961 sender=alive fee=alive
+2026-10-17T15:41:30Z sok=18000 rej=0 ram_avail_mb=12944 sender=alive fee=alive
+2026-10-17T15:42:25Z sok=17996 rej=0 ram_avail_mb=12960 sender=alive fee=alive
+2026-10-17T15:43:20Z sok=18002 rej=0 ram_avail_mb=12686 sender=alive fee=alive
+2026-10-17T15:44:15Z sok=17999 rej=0 ram_avail_mb=12960 sender=alive fee=alive
+2026-10-17T15:45:10Z sok=18001 rej=0 ram_avail_mb=12956 sender=alive fee=alive
+2026-10-17T15:46:05Z sok=18000 rej=2 ram_avail_mb=12540 sender=alive fee=alive
+2026-10-17T15:47:00Z sok=17995 rej=0 ram_avail_mb=12543 sender=alive fee=alive
+2026-10-17T15:47:55Z sok=17995 rej=0 ram_avail_mb=12836 sender=alive fee=alive
+2026-10-17T15:48:50Z sok=18002 rej=0 ram_avail_mb=12971 sender=alive fee=alive
+2026-10-17T15:49:45Z sok=17996 rej=7 ram_avail_mb=12980 sender=alive fee=alive
+2026-10-17T15:50:40Z sok=17999 rej=0 ram_avail_mb=12432 sender=alive fee=alive
+2026-10-17T15:51:35Z sok=18000 rej=0 ram_avail_mb=12952 sender=alive fee=alive
+2026-10-17T15:52:30Z sok=18000 rej=0 ram_avail_mb=12955 sender=alive fee=alive
+2026-10-17T15:53:25Z sok=18001 rej=0 ram_avail_mb=12966 sender=alive fee=alive
+2026-10-17T15:54:20Z sok=17994 rej=0 ram_avail_mb=12937 sender=alive fee=alive
+2026-10-17T15:55:15Z sok=18007 rej=0 ram_avail_mb=12293 sender=alive fee=alive
+2026-10-17T15:56:10Z sok=17998 rej=0 ram_avail_mb=12945 sender=alive fee=alive
+2026-10-17T15:57:05Z sok=18003 rej=0 ram_avail_mb=12945 sender=alive fee=alive
+2026-10-17T15:58:00Z sok=17996 rej=0 ram_avail_mb=12556 sender=alive fee=alive
+2026-10-17T15:58:55Z sok=17996 rej=0 ram_avail_mb=12536 sender=alive fee=alive
+2026-10-17T15:59:50Z sok=18002 rej=0 ram_avail_mb=12704 sender=alive fee=alive
+2026-10-17T16:00:45Z sok=17999 rej=0 ram_avail_mb=12966 sender=alive fee=alive
+2026-10-17T16:01:41Z sok=17999 rej=0 ram_avail_mb=12944 sender=alive fee=alive
+2026-10-17T16:02:36Z sok=18005 rej=0 ram_avail_mb=12572 sender=alive fee=alive
+2026-10-17T16:03:31Z sok=17997 rej=0 ram_avail_mb=12567 sender=alive fee=alive
+2026-10-17T16:04:26Z sok=17997 rej=0 ram_avail_mb=12789 sender=alive fee=alive
+2026-10-17T16:05:21Z sok=18005 rej=0 ram_avail_mb=12948 sender=alive fee=alive
+2026-10-17T16:06:16Z sok=17997 rej=0 ram_avail_mb=12958 sender=alive fee=alive
+2026-10-17T16:07:11Z sok=18002 rej=0 ram_avail_mb=12550 sender=alive fee=alive
+2026-10-17T16:08:06Z sok=17989 rej=6 ram_avail_mb=12990 sender=alive fee=alive
+2026-10-17T16:09:01Z sok=18001 rej=0 ram_avail_mb=13000 sender=alive fee=alive
+2026-10-17T16:09:18Z CEST=18:09:18 avail_mb=12686 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:08Z,bot,A1,300,748,124,113,113,113,748,5,18001,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:09:56Z sok=18001 rej=0 ram_avail_mb=12554 sender=alive fee=alive
+2026-10-17T16:10:17Z CEST=18:10:17 avail_mb=12586 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:09Z,bot,A1,300,1027,32,409,409,409,1027,5,18001,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:10:51Z sok=18001 rej=0 ram_avail_mb=12565 sender=alive fee=alive
+2026-10-17T16:11:16Z CEST=18:11:16 avail_mb=12997 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:10Z,bot,A1,300,777,571,154,260,260,777,5,17997,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:11:46Z sok=17997 rej=0 ram_avail_mb=12463 sender=alive fee=alive
+2026-10-17T16:12:14Z CEST=18:12:14 avail_mb=12957 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:11Z,bot,A1,300,783,159,163,163,163,783,5,18002,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:12:41Z sok=18002 rej=0 ram_avail_mb=12992 sender=alive fee=alive
+2026-10-17T16:13:12Z CEST=18:13:12 avail_mb=12944 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:12Z,bot,A1,300,656,77,38,38,38,656,5,18001,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:13:36Z sok=18001 rej=0 ram_avail_mb=12966 sender=alive fee=alive
+2026-10-17T16:14:12Z CEST=18:14:12 avail_mb=12498 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:13Z,bot,A1,300,828,114,216,216,216,828,5,17999,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:14:31Z sok=17999 rej=0 ram_avail_mb=12549 sender=alive fee=alive
+2026-10-17T16:15:11Z CEST=18:15:11 avail_mb=12535 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:14Z,bot,A1,300,906,182,271,271,271,906,5,18000,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:15:26Z sok=18000 rej=0 ram_avail_mb=12530 sender=alive fee=alive
+2026-10-17T16:16:10Z CEST=18:16:10 avail_mb=12805 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:15Z,bot,A1,300,1084,79,455,455,455,1084,5,18004,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:16:21Z sok=18004 rej=0 ram_avail_mb=12460 sender=alive fee=alive
+2026-10-17T16:17:08Z CEST=18:17:08 avail_mb=12538 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:16Z,bot,A1,300,657,41,174,174,174,657,5,18000,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:17:16Z sok=18000 rej=0 ram_avail_mb=12531 sender=alive fee=alive
+2026-10-17T16:18:07Z CEST=18:18:07 avail_mb=12556 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:17Z,bot,A1,300,1117,259,551,551,551,1117,5,17999,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:18:11Z sok=17999 rej=0 ram_avail_mb=12987 sender=alive fee=alive
+2026-10-17T16:19:05Z CEST=18:19:05 avail_mb=12547 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:18Z,bot,A1,300,692,143,134,134,134,692,5,17999,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:19:06Z sok=17999 rej=0 ram_avail_mb=12547 sender=alive fee=alive
+2026-10-17T16:20:01Z sok=18000 rej=0 ram_avail_mb=12957 sender=alive fee=alive
+2026-10-17T16:20:03Z CEST=18:20:03 avail_mb=12959 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:19Z,bot,A1,300,777,140,187,187,187,777,5,18000,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:20:56Z sok=18000 rej=0 ram_avail_mb=12715 sender=alive fee=alive
+2026-10-17T16:21:02Z CEST=18:21:02 avail_mb=12737 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:20Z,bot,A1,300,661,204,55,55,55,661,5,17997,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:21:51Z sok=17997 rej=0 ram_avail_mb=12692 sender=alive fee=alive
+2026-10-17T16:22:00Z CEST=18:22:00 avail_mb=12674 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:21Z,bot,A1,300,858,35,253,253,253,858,5,18001,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:23:22Z sok=2848 rej=430 ram_avail_mb=2473 sender=alive fee=alive
+2026-10-17T16:23:47Z CEST=18:23:47 avail_mb=2468 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:22Z,bot,A1,300,935,4,304,304,304,935,5,2848,430,0,0,0,0,0,29,401,0]
+2026-10-17T16:24:17Z sok=8838 rej=100 ram_avail_mb=2706 sender=alive fee=alive
+2026-10-17T16:24:48Z CEST=18:24:48 avail_mb=2661 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:23Z,bot,A1,300,667,75,83,83,83,667,5,8838,100,0,100,0,0,0,0,0,0]
+2026-10-17T16:25:12Z sok=17999 rej=0 ram_avail_mb=2606 sender=alive fee=alive
+2026-10-17T16:25:46Z CEST=18:25:46 avail_mb=2455 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:24Z,bot,A1,300,675,506,66,66,66,675,5,17999,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:26:07Z sok=18002 rej=0 ram_avail_mb=2996 sender=alive fee=alive
+2026-10-17T16:26:45Z CEST=18:26:45 avail_mb=3005 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:25Z,bot,A1,300,797,35,85,85,85,797,5,18002,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:27:02Z sok=17998 rej=0 ram_avail_mb=2994 sender=alive fee=alive
+2026-10-17T16:27:43Z CEST=18:27:43 avail_mb=2920 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:26Z,bot,A1,300,772,488,134,134,134,772,5,17998,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:27:57Z sok=17998 rej=0 ram_avail_mb=2934 sender=alive fee=alive
+2026-10-17T16:28:41Z CEST=18:28:41 avail_mb=2858 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:27Z,bot,A1,300,655,220,61,61,61,655,5,17993,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:28:52Z sok=17993 rej=0 ram_avail_mb=2749 sender=alive fee=alive
+2026-10-17T16:29:41Z CEST=18:29:41 avail_mb=2993 procs=[66896 node fee-reads.mjs;87371 node run-sender.mjs --live] pulse=[2026-10-17T16:28Z,bot,A1,300,689,192,362,362,362,689,5,18006,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:29:47Z sok=18006 rej=0 ram_avail_mb=2960 sender=alive fee=alive
+2026-10-17T16:30:40Z CEST=18:30:40 avail_mb=3115 procs=[66896 node fee-reads.mjs] pulse=[2026-10-17T16:30Z-partial,bot,A1,300,801,490,195,195,195,801,0,28,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:30:42Z sok=28 rej=0 ram_avail_mb=3118 sender=DEAD fee=alive
+2026-10-17T16:31:37Z sok=28 rej=0 ram_avail_mb=2589 sender=DEAD fee=alive
+2026-10-17T16:31:39Z CEST=18:31:39 avail_mb=2592 procs=[66896 node fee-reads.mjs] pulse=[2026-10-17T16:30Z-partial,bot,A1,300,801,490,195,195,195,801,0,28,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:32:32Z sok=28 rej=0 ram_avail_mb=3043 sender=DEAD fee=alive
+2026-10-17T16:32:37Z CEST=18:32:37 avail_mb=3043 procs=[66896 node fee-reads.mjs] pulse=[2026-10-17T16:30Z-partial,bot,A1,300,801,490,195,195,195,801,0,28,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:33:27Z sok=28 rej=0 ram_avail_mb=2942 sender=DEAD fee=alive
+2026-10-17T16:33:36Z CEST=18:33:36 avail_mb=2356 procs=[66896 node fee-reads.mjs] pulse=[2026-10-17T16:30Z-partial,bot,A1,300,801,490,195,195,195,801,0,28,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:34:22Z sok=28 rej=0 ram_avail_mb=3065 sender=DEAD fee=alive
+2026-10-17T16:34:34Z CEST=18:34:34 avail_mb=3070 procs=[66896 node fee-reads.mjs] pulse=[2026-10-17T16:30Z-partial,bot,A1,300,801,490,195,195,195,801,0,28,0,0,0,0,0,0,0,0,0]
+2026-10-17T16:35:17Z LOOP_END reached 16:35 UTC
+2026-10-17T16:35:17Z CEST=18:35:17 avail_mb=3122 procs=[fee-reads only; sender hard-stopped] pulse=[final]
