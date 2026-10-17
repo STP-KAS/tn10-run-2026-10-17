@@ -34,8 +34,10 @@ Today, "five nodes" were about three backends (muon, vector, electron/neutrino/b
 ## 5. Mining for Run B
 
 - Use the **wRPC SDK miner on the public nodes** (kaspa-miner can't connect because gRPC is closed on them). The new node is an option only if Pulse agrees, and n3 never mines.
+- **Make the Node wRPC SDK miner the standard Run B package** (the one Build used today; a 60 s test gave 13 of 13 blocks accepted). Don't plan on kaspa-miner for public nodes. **Do the 60 s test mine about a day before the run**, not on run day: today it was found and packaged with only a few hours to go.
 - **Measure the share on-chain** (blocks paying the miner's own TN10 address ÷ all blocks in the window, counted from a node, with only counts in git), so that B0 can be verified instead of depending on a reported number.
 - **Start the miners at least 1 hour before B0**, so the share has a full window.
+- **Decide B0 with time to spare:** measure the share on-chain from 15:00Z and decide by 15:30Z (for a 15:45Z B0 slot). Today there was no measured share at 15:45Z and the call slipped to 16:00Z.
 - **Plan enough time after B0 for B1, B2 (up to 25 min) and B3 before the hard stop.** Today B0 slipped to 16:00Z and there was no room left.
 
 ## 6. Fee-read gaps on single nodes: minor, but log why
@@ -59,3 +61,20 @@ Only an operator STOP may block restarts. Today the KNS lanes' shutdown handler 
 ## 10. Every lane runner needs a supervisor
 
 - **Every lane runner needs a supervisor** (bot sender, KNS lanes, Build's senders and miners, and any other lane runner) that restarts it after a box freeze or an unexpected exit, and logs the exit code. The supervisor checks for an operator STOP before each restart and honours the hard stop.
+
+## 11. Test node availability on the real path
+
+The node check must test what is actually used: a wRPC connect, sync status, wRPC `getBlockTemplate`, and for mining one solved-block submit. Closed gRPC ports or an HTTP/2 curl result don't count. Today, an HTTP/2 curl test against the websocket gave a false 502 ("down"), and closed gRPC ports were first read as "public nodes can't be mined". In fact every node answered over wRPC, and solved blocks were accepted. Those false reads cost hours on run day.
+
+## 12. Every helper gets the sender's hard stop
+
+The fee reader, the keepalive watcher and the loggers all take the same hard-stop time as the sender and stop themselves at it (plus at most a short, fixed tail for a final read). Today the sender stopped at 16:30:00Z, but the fee reader kept reading the public nodes until about 16:35Z and the keepalive loop ran until 16:35Z, on separate timers.
+
+## 13. Generate chain-count, steps and confirm files automatically
+
+`chain-count.csv`, `steps.csv` and `confirm.csv` (shapes in LOGGING.md) were never produced today, and the `ntp.csv` end row is missing. Write `steps.csv` and `confirm.csv` from the sender as each step ends, add the `ntp.csv` end row at the hard stop, and run `chain-count.csv` by script right after the hard stop. Don't rely on doing it by hand after the run.
+
+## 14. Build logs his own desk sender and miner numbers each minute
+
+The bot has no data on Build's desk sender or his miners, so today's summary only has his reported numbers. Build writes one row per minute to a file: sent, accepted, rejects by reason, miner workers, hashrate, and blocks found / accepted / rejected. Counts only, no addresses. The file goes into `logs/build/` after the run.
+
